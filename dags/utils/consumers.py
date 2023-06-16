@@ -2,9 +2,8 @@ import requests
 import pandas as pd
 import json
 
+from dag_utils import normalize_collumns
 from time import sleep
-
-
 
 class FileConsumer:
     def __init__(self, main_url, total: int = None ):
@@ -106,8 +105,8 @@ class CkanConsumer:
                 sleep(5)
                 response = requests.get(self.url, params=params)
             data.extend(response.json()['result']['records'])
-        
         print(f'[INFO] - Total of {len(data)} records retrieved from {self.url} on resource {self.resource_id}')
         #Reassembling the dataframe
         df = pd.DataFrame(data)
+        #df = normalize_collumns(df)
         return df

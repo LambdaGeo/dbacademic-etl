@@ -73,9 +73,9 @@ config_dags = {
             "nome_curso": ["curso"],
         },
         "cursos": {
-            "nome": ["nome"],
+            "nome": ["nome", "nome_curso", "nome curso"],
             "id": ["id_curso"],
-            "codigo": ["id_curso"],
+            "codigo": ["id_curso","I N E P"],
             "codigo_unidade": ["id_unidade_responsavel"],
         },
         "unidades": {
@@ -90,10 +90,10 @@ config_dags = {
             "consumer": "CkanConsumer",
             "main_url": "https://dados.ufrn.br",
             "colecoes": {
-                "docentes": {"resource_id": "6a8e5461-e748-45c6-aac6-432188d88dde"},
+                "docentes" : {"resource_id": "6a8e5461-e748-45c6-aac6-432188d88dde"},
                 "discentes": {"resource_id": "a55aef81-e094-4267-8643-f283524e3dd7"},
-                "cursos": {"resource_id": "a10bc434-9a2d-491a-ae8c-41cf643c35bc"},
-                "unidades": {"resource_id": "3f2e4e32-ef1a-4396-8037-cbc22a89d97f"},
+                "cursos"   : {"resource_id": "a10bc434-9a2d-491a-ae8c-41cf643c35bc"},
+                "unidades" : {"resource_id": "3f2e4e32-ef1a-4396-8037-cbc22a89d97f"},
             },
         },
         "ufca": {
@@ -101,7 +101,9 @@ config_dags = {
             "consumer": "CkanConsumer",
             "main_url": "https://dados.ufca.edu.br",
             "colecoes": {
-                "docentes": {"resource_id": "6b2dbca5-58f8-472e-bc6a-eb827e631873"}
+                "docentes" : {"resource_id": "6b2dbca5-58f8-472e-bc6a-eb827e631873"},
+                "unidades" : {"resource_id": "406c5ac5-a8ff-4a9a-b343-83e1eb804725"},
+                "cursos"   : {"resource_id": "5f31e620-a366-42c9-a54c-96da666c93b7"}
             },
         },
         "ufpi": {
@@ -109,7 +111,9 @@ config_dags = {
             "consumer": "CkanConsumer",
             "main_url": "https://dados.ufpi.br",
             "colecoes": {
-                "docentes": {"resource_id": "a34d7d7e-30af-41f0-81cf-cd10b6f078bd"}
+                "docentes" : {"resource_id": "a34d7d7e-30af-41f0-81cf-cd10b6f078bd"},
+                "discentes": {"resource_id": "cae87438-1bc2-40a5-93e5-d2faec76696f"},
+                "cursos"   : {"resource_id": "5e75981a-f647-49d2-95d6-ec6ddd60b0bb"}
             },
         },
         "ufcspa": {
@@ -117,7 +121,10 @@ config_dags = {
             "consumer": "CkanConsumer",
             "main_url": "https://dados.ufcspa.edu.br",
             "colecoes": {
-                "docentes": {"resource_id": "4286a4d5-9de7-4f88-bb37-f0f064415118", "q": "Professor"}
+                #"docentes" : {"resource_id": "4286a4d5-9de7-4f88-bb37-f0f064415118", "q": "Professor"},
+                "docentes" : {"resource_id": "4286a4d5-9de7-4f88-bb37-f0f064415118"},
+                "cursos"   : {"resource_id": "6096d836-9160-43ae-bbbd-8712d4b202ca"},
+                "unidades" : {"resource_id": "d49b7765-b19a-4d4e-9e2d-feb9f7520beb"}
             },
         },
         "unifespa": {
@@ -125,7 +132,8 @@ config_dags = {
             "consumer": "CkanConsumer",
             "main_url": "http://ckan.unifesspa.edu.br",
             "colecoes": {
-                "docentes": {"resource_id": "eff99b8c-09d3-453b-b7dd-1de846ab18a7"}
+                "docentes" : {"resource_id": "b013c8cf-67e7-4ec0-ae30-c280cbebc65e"},
+                "cursos"   : {"resource_id": "9ee93dc4-9398-43fc-91c4-1173b9378fed"}
             },
         },
         "ufv": {
@@ -133,7 +141,9 @@ config_dags = {
             "consumer": "CkanConsumer",
             "main_url": "https://dados.ufv.br",
             "colecoes": {
-                "docentes": {"resource_id": "a949a903-9536-4d20-87e5-cca5c217771a"}
+                "docentes" : {"resource_id": "a949a903-9536-4d20-87e5-cca5c217771a"},
+                "discentes": {"resource_id": "f7128b4a-07fb-4a87-ac5d-cd73cb82dfbe"},
+                "cursos"   : {"resource_id": "e569f2e0-8ba0-4922-b715-9928980ae9f2"}
             },
         },
         "ufsj": {
@@ -141,7 +151,9 @@ config_dags = {
             "consumer": "CkanConsumer",
             "main_url": "http://dados.ufsj.edu.br",
             "colecoes": {
-                "docentes": {"resource_id": "8e2e35ed-e255-4894-b070-ad8857366faf"}
+                "docentes" : {"resource_id": "8e2e35ed-e255-4894-b070-ad8857366faf"},
+                "cursos"   : {"resource_id": "15625dc7-acc2-45e8-9189-46e4362c013f"},
+                "unidades" : {"resource_id": "916cf54f-b4d2-402b-affe-aa7b156dd5ef"}
             },
         },
         "ufms": {
@@ -149,7 +161,10 @@ config_dags = {
             "consumer": "CkanConsumer",
             "main_url": "https://dadosabertos.ufms.br/",
             "colecoes": {
-                "docentes": {"resource_id": "a8ca7f30-0824-489b-8c70-faddcbd74f53","q": "Professor do Magisterio Superior"}
+                #"docentes" : {"resource_id": "a8ca7f30-0824-489b-8c70-faddcbd74f53","q": "Professor do Magisterio Superior"},
+                "docentes" : {"resource_id": "a8ca7f30-0824-489b-8c70-faddcbd74f53"},
+                "cursos"   : {"resource_id": "ae830b77-fc5c-47fa-9717-5eb9ff4b4e40"},
+                "discentes": {"resource_id": "ebaa630c-848d-4df6-80bb-d87370e757b3"}
             },
         },
         "ufop": {
