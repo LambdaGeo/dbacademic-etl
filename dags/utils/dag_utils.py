@@ -214,7 +214,7 @@ def dynamic_create_dag(dag_id:str, institute, conf, generic_mapper, schedule_int
     
     return dag
 
-def normalize_collumns(data:pd.Dataframe):
+def normalize_collumns(data:pd.DataFrame):
     #All collumns to lowercase
     data.columns = data.columns.str.lower()
     #Remove spaces

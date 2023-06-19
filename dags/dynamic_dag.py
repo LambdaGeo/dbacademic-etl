@@ -121,13 +121,12 @@ config_dags = {
             "consumer": "CkanConsumer",
             "main_url": "https://dados.ufcspa.edu.br",
             "colecoes": {
-                #"docentes" : {"resource_id": "4286a4d5-9de7-4f88-bb37-f0f064415118", "q": "Professor"},
-                "docentes" : {"resource_id": "4286a4d5-9de7-4f88-bb37-f0f064415118"},
+                "docentes" : {"resource_id": "4286a4d5-9de7-4f88-bb37-f0f064415118", "q": "Professor"},
                 "cursos"   : {"resource_id": "6096d836-9160-43ae-bbbd-8712d4b202ca"},
                 "unidades" : {"resource_id": "d49b7765-b19a-4d4e-9e2d-feb9f7520beb"}
             },
         },
-        "unifespa": {
+        "unifesspa": {
             "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_do_Sul_e_Sudeste_do_Pará",
             "consumer": "CkanConsumer",
             "main_url": "http://ckan.unifesspa.edu.br",
@@ -161,8 +160,7 @@ config_dags = {
             "consumer": "CkanConsumer",
             "main_url": "https://dadosabertos.ufms.br/",
             "colecoes": {
-                #"docentes" : {"resource_id": "a8ca7f30-0824-489b-8c70-faddcbd74f53","q": "Professor do Magisterio Superior"},
-                "docentes" : {"resource_id": "a8ca7f30-0824-489b-8c70-faddcbd74f53"},
+                "docentes" : {"resource_id": "a8ca7f30-0824-489b-8c70-faddcbd74f53","q": "Professor do Magisterio Superior"},
                 "cursos"   : {"resource_id": "ae830b77-fc5c-47fa-9717-5eb9ff4b4e40"},
                 "discentes": {"resource_id": "ebaa630c-848d-4df6-80bb-d87370e757b3"}
             },
@@ -188,8 +186,10 @@ config_dags = {
             "main_url": "http://dados.ifms.edu.br",
             "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_de_Mato_Grosso_do_Sul",
             "colecoes": {
-                "docentes": {"resource_id": "4ccd20e6-703d-4682-a300-26a0e3788a4f"},
-                "discentes": {"resource_id": "b8b4dfdf-98ef-4d57-baff-75c163be6e9a"},
+                "docentes" : {"resource_id": "4ccd20e6-703d-4682-a300-26a0e3788a4f"},
+                "discentes": {"resource_id": "7d7650fe-84a3-4927-8285-b1d48c766f6b"},
+                "cursos"   : {"resource_id": "b1913941-fcd6-4216-882f-fc2a81121bcc"}
+
             },
         },
 
@@ -199,7 +199,9 @@ config_dags = {
             "main_url": "https://dadosabertos.ufma.br/",
             "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_do_Maranhão",
             "colecoes": {
-                "docentes": {"resource_id": "55a2d103-d73b-449e-85bc-655df7dfc45a"},
+                "docentes" : {"resource_id": "55a2d103-d73b-449e-85bc-655df7dfc45a"},
+                "cursos"   : {"resource_id": "1ec5679f-67b8-449d-8b10-dc955350ade4"},
+                "discentes": {"resource_id": "d7107434-4280-4208-b831-2efa9572ff87"}
             },
         },
 
@@ -208,7 +210,8 @@ config_dags = {
             "main_url": "http://dados.ifap.edu.br/",
             "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_do_Amapá",
             "colecoes": {
-                "docentes": {"resource_id": "005896e4-2a0a-4ddb-8420-62258d231871"},
+                "docentes" : {"resource_id": "f121d410-9bf1-446d-9304-c0822905b5b3"},
+                "cursos"   : {"resource_id": "f121d410-9bf1-446d-9304-c0822905b5b3"},
             },
         },
 
@@ -247,6 +250,7 @@ config_dags = {
             "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_da_Fronteira_Sul",
             "colecoes": {
                 "docentes": {"resource_id": "1e801321-6e0b-4716-ba1d-ce79919e87da","q":"Professor"},
+                "cursos"   : {"resource_id": "96ef79b5-a8d7-4aa6-b0ad-24607bb7eda5"}
             },
         },
 
@@ -256,6 +260,7 @@ config_dags = {
             "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_de_Itajubá",
             "colecoes": {
                 "docentes": {"resource_id": "50024421-d377-4184-ac23-e7f0ee3ad2c1", "q": "Professor"},
+                "cursos"   : {"resource_id": "04e316c3-4278-41da-a299-980921a5a5fa"}
             },
         },
 
@@ -265,6 +270,7 @@ config_dags = {
             "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_de_Pelotas",
             "colecoes": {
                 "docentes": {"resource_id": "b63c24da-d96d-4ee2-bdaf-f7a8c37f0007", "q" : "Professor"},
+                "cursos"   : {"resource_id": "335bed66-d18b-40e1-9ac1-0db6d4f50a99"}
             },
         },
 
@@ -273,10 +279,58 @@ config_dags = {
             "main_url": "https://dados.ifsuldeminas.edu.br",
             "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_do_Sul_de_Minas",
             "colecoes": {
-                "docentes": {"resource_id": "7db2014f-577f-4ec3-a6ab-2c7da2015f8b"},
+                "docentes" : {"resource_id": "7db2014f-577f-4ec3-a6ab-2c7da2015f8b"},
+                "cursos"   : {"resource_id": "f3ebccba-3a38-4bf2-9b0f-80096f79a2a2"},
+                "discentes": {"resource_id": "0dab4d92-316a-4b97-8e93-1c8ab0a26b25"},
             },
         },
-
+        "ufsb": { 
+            "consumer": "CkanConsumer",
+            "main_url": "http://dadosabertos.ufsb.edu.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_do_Sul_de_Minas",
+            "colecoes": {
+                "cursos"   : {"resource_id": "c723411f-7156-4a46-8769-425a8e60c2b9"},
+                "discentes": {"resource_id": "9572074b-ce46-4d9b-8a4b-f8ddc7507ac3"}
+            },
+        },
+        "unilab": { 
+            "consumer": "CkanConsumer",
+            "main_url": "http://dadosabertos.unilab.edu.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_da_Integração_Internacional_da_Lusofonia_Afro-Brasileira",
+            "colecoes": {
+                "docentes" : {"resource_id": "d3a942b0-a579-4645-b559-6e97d0dc4a70"},
+                "cursos"   : {"resource_id": "570a4151-95a6-44bc-9129-170a792fb314"},
+                "discentes": {"resource_id": "3b947be4-2ca2-4b9c-9c88-e06396576394"}
+            },
+        },
+        "ufpe": { #Não atualizavel
+            "consumer": "CkanConsumer",
+            "main_url": "https://dados.ufpe.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_de_Pernambuco",
+            "colecoes": {
+                "docentes" : {"resource_id": "a5729061-f9ee-4d44-92ea-61e3c7722fc0"},
+                "cursos"   : {"resource_id": "29bc7c28-0c74-46ac-8151-d9e39245f7ff"},
+                "discentes": {"resource_id": "3ec70513-eca6-453d-95d1-fde1f1972a11"}
+            },
+        },
+        "ufersa": {
+            "consumer": "CkanConsumer",
+            "main_url": "https://dadosabertos.ufersa.edu.br/",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_Rural_do_Semi-Árido",
+            "colecoes": {
+                "cursos"   : {"resource_id": "98e89cf8-4f36-451f-994a-29179c018ee0"}
+            },
+        },
+        "ufscar": {
+            "consumer": "CkanConsumer",
+            "main_url": "https://dados.ufscar.br/",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_de_São_Carlos",
+            "colecoes": {
+                "docentes" : {"resource_id": "8ffe29fe-415e-43d0-bb95-887e0b209cef","q": "Professor"},
+                "cursos"   : {"resource_id": "f6f03301-42c9-4d23-80c3-75b1582a8020"},
+                "discentes": {"resource_id": "50578feb-70c6-44ee-8425-a7b5b15c8bd5"}
+            },
+        },
         "ifpb": { 
             "consumer": "FileConsumer",
             "main_url": "https://dados.ifpb.edu.br",
@@ -286,10 +340,11 @@ config_dags = {
                     "resource": "dataset/26d67876-0cb2-41a4-83ed-7bde06eb736c/resource/0d03ee6a-2af1-4dde-9b3d-90419c48fabe/download/servidores.json",
                     "q" : "cargo_emprego.str.contains('PROFESSOR')"
                     },
+                "cursos": {
+                    "resource": "dataset/f2902132-dfc9-4fba-98ab-40346075224e/resource/47c6e782-6ef9-4942-8361-38d8aac22922/download/cursos.json"
+                }
             },
         },
-
-
         "ifrn": { 
             "consumer": "FileConsumer",
             "main_url": "https://dados.ifrn.edu.br",
@@ -299,9 +354,14 @@ config_dags = {
                     "resource": "dataset/0c5c1c1a-7af8-4f24-ba37-a9eda0baddbb/resource/c3f64d5b-f2df-4ef2-8e27-fb4f10a7c3ea/download/dados_extraidos_recursos_servidores.json",
                     "q" : "cargo.str.contains('PROFESSOR')"
                     },
+                "cursos": { #Estão dentro de um array chamado componentes_curriculares
+                    "resource": "dataset/7b48f9d0-205d-46b1-8225-a3cc7d3973ff/resource/fe0e9d2c-1c02-4625-b692-13edcc3380ae/download/dados_extraidos_recursos_cursos-ofertados.json"
+                },
+                "discentes": {
+                    "resource": "dataset/d5adda48-f65b-4ef8-9996-1ee2c445e7c0/resource/00efe66e-3615-4d87-8706-f68d52d801d7/download/dados_extraidos_recursos_alunos-da-instituicao.json"
+                }
             },
         },
-
         "ifro": { 
             "consumer": "FileConsumer",
             "main_url": "https://dados.ifro.edu.br",
@@ -313,9 +373,7 @@ config_dags = {
                     },
             },
         },
-
-        
-        "ufs": { 
+        "ufs": { #Dando timeout
             "consumer": "FileConsumer",
             "main_url": "https://dados.ufs.br",
             "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_do_Rio_Grande_do_Norte",
@@ -328,7 +386,203 @@ config_dags = {
                     },
             },
         },
-        
+        "unb": { #Não atualizável
+            "consumer": "FileConsumer",
+            "main_url": "https://dados.unb.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_de_Brasília",
+            "colecoes": {
+                #"docentes": { Arquivo zipado
+                #    "resource": "dataset/9b6891b9-3c87-4337-b1d7-6c4187b10d00/resource/4cf8c882-82ea-4a19-a775-3f062cd1cc62/download/dados_institucionais_docentes.7z",
+                #},
+                'cursos': {
+                    "resource": "dataset/cbae3cab-650f-487e-b936-0a5576ff757b/resource/539c24bf-e67f-4cd7-920a-6fd461435f88/download/cursos-de-graduao-03-2023.json",
+                },
+            }
+        },
+        "ufg": { #Não atualizável, apenas stricto_sensu
+            "consumer": "FileConsumer",
+            "main_url": "https://dados.ufg.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_de_Goiás",
+            "colecoes": {
+                "docentes": { #Arquivo zipado
+                    "resource": "dataset/c4d928ed-77e9-44c4-9c0d-77852b19c4c1/resource/b84f8ffb-aabd-4355-b41c-2d8843f579d9/download/da_servidores.csv",
+                    "data_type" : "csv"
+                },
+                'cursos': {
+                    "resource": "dataset/0d60fcf7-2bdb-41bd-86f4-327d6d91c34e/resource/c84060e7-920a-4072-8e14-fdfc45d37b9d/download/da_cursos_pos_graduacao.csv",
+                    "data_type" : "csv"
+                },
+                'discentes': {
+                    "resource": "dataset/6c3df25f-34ee-498a-8d79-4a071559b87e/resource/c2154e26-ea4b-4fcc-9c28-e03f28ea7851/download/da_discentes_stricto.csv",
+                    "data_type" : "csv"
+                }
+            }
+        },
+        "ufba": {
+            "consumer": "FileConsumer",
+            "main_url": "https://dados.ufba.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_da_Bahia",
+            "colecoes": {
+                "docentes": {
+                    "resource": "dataset/4ba39fb2-470d-45df-8e7c-be0faeb5c8a1/resource/e95d0d5e-e9f0-4821-915d-6b31a95d272e/download/docentes.csv",
+                    "data_type" : "csv"
+                },
+                'cursos': { #Stricto Sensu
+                    "resource": "dataset/bf507a53-2299-498c-a7f0-7e1e807aa149/resource/e9acf9fc-ce5b-449e-b639-207d93872888/download/cursos_pos.csv",
+                    "data_type" : "csv"
+                }
+            }
+        },
+        "ufpb": { #Não atualizável
+            "consumer": "FileConsumer",
+            "main_url": "https://dadosabertos.ufpb.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_da_Paraíba",
+            "colecoes": {
+                'cursos': {
+                    "resource": "dataset/1af8700e-9f5e-4672-8017-ea93a934bcaf/resource/93214e98-e5cc-4cc5-aa74-db0f31564138/download/ensino_graduacao_curso_20221008.csv",
+                    "data_type" : "csv",
+                    "sep": ";"
+                }
+            }
+        },
+        "ufc": { #Não atualizável
+            "consumer": "FileConsumer",
+            "main_url": "https://dados.ufc.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_do_Ceará",
+            "colecoes": {
+                'docentes': {
+                    "resource": "dataset/e24b8acd-ee61-4027-9b9e-ede00a7311bc/resource/75aec4c5-bfee-4692-94c6-0767c60c080b/download/estrutura_de_pessoal_6_2023.csv",
+                    "data_type" : "csv",
+                    "q" : "cargo.str.contains('PROFESSOR')"
+                },
+                'cursos': {
+                    "resource": "dataset/d1cde4bc-593d-4bb7-a086-4386140761d2/resource/a00652cc-9b73-46ec-a6ae-821a549a7bde/download/cursosofertadosgraduacao_2018.csv",
+                    "data_type" : "csv"
+                },
+                'discentes': {
+                    "resource": "dataset/7d220f71-b11c-4c72-8cd1-f537f335d8ab/resource/b78b2a16-c905-4cb8-9c82-8678856e14f0/download/discentes_da_graduao_6_2023.csv",
+                    "data_type" : "csv"
+                }
+            }
+        },
+        "ufob": { #Não atualizável
+            "consumer": "FileConsumer",
+            "main_url": "https://ufob.edu.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_do_Oeste_da_Bahia",
+            "colecoes": {
+                'cursos': {
+                    "resource": "acesso-a-informacao/dados-abertos/api/2018/cursos-de-graduacao-2018.csv",
+                    "data_type" : "csv"
+                }
+            }
+        },
+        "ufrpe": {
+            "consumer": "FileConsumer",
+            "main_url": "http://dados.ufrpe.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_Rural_de_Pernambuco",
+            "colecoes": {
+                'cursos': {
+                    "resource": "dataset/d9a5a8f5-365e-480b-8578-1d5395490662/resource/4fa5ff11-0b7c-45ae-b934-2a6b82118a27/download/cursos.csv",
+                    "data_type" : "csv"
+                }
+            }
+        },
+        "ufra": {
+            "consumer": "FileConsumer",
+            "main_url": "http://dados.ufra.edu.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_Rural_da_Amazônia",
+            "colecoes": {
+                'docentes': {
+                    "resource": "dataset/989c10bc-c2db-41ae-863a-e262760d8e6a/resource/af629a3e-c70c-452a-a1b0-617ec31a9cb5/download/servidores.csv",
+                    "data_type" : "csv",
+                    "sep": ";",
+                    "q" : "cargo.str.contains('PROFESSOR')"
+                },
+            }
+        },
+        "unifesp": { #Não atualizável
+            "consumer": "FileConsumer",
+            "main_url": "http://dadosabertos.unifesp.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_de_São_Paulo",
+            "colecoes": {
+                'docentes': {
+                    "resource": "dataset/ed21a3c9-e8b4-4821-b1a5-3b7444eb32eb/resource/0c0a4411-f256-43c4-9674-f2cd2a34d081/download/lista-servidores-exercicio-portal-transparencia.xls_20230602.xls",
+                    "data_type" : "xlsx",
+                    "q" : "cargo.str.contains('PROFESSOR')"
+                },
+                'cursos': {
+                    "resource": "dataset/17d76964-13c9-4faa-b484-f4093706966c/resource/e545a42a-07be-42eb-bcc1-3f78d619b828/download/cursos_unifesp_20230330.xls",
+                    "data_type" : "xlsx"
+                },
+                'discentes': {
+                    "resource": "dataset/93b05220-e073-4b0f-bad3-3b3262f85597/resource/5eab3163-c19b-4403-a066-8f6a9371fd88/download/discente_ingressantes_2023_20230529.xls",
+                    "data_type" : "xlsx"
+                }
+            }
+        },
+        "ufu": { #Não atualizável
+            "consumer": "FileConsumer",
+            "main_url": "https://dados.ufu.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_de_Uberlândia",
+            "colecoes": {
+                'docentes': {
+                    "resource": "https://dados.ufu.br/node/342/download",
+                    "data_type" : "csv",
+                    "q" : "cargo.str.contains('PROFESSOR')"
+                }
+            }
+        },
+        "ufabc": { #Não atualizável
+            "consumer": "FileConsumer",
+            "main_url": "https://dados.ufabc.edu.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_do_ABC",
+            "colecoes": {
+                'docentes': {
+                    "resource": "images/ufabc/sugepe/bases_sugepe/bd_sugepe03_2020.csv",
+                    "data_type" : "csv",
+                    "q" : "CARGO.str.contains('PROFESSOR MAGISTÉRIO SUPERIOR')"
+                }
+            }
+        },
+        "ufes": { #Não atualizável
+            "consumer": "FileConsumer",
+            "main_url": "https://dados.ufes.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_do_Espírito_Santo",
+            "colecoes": {
+                'docentes': {
+                    "resource": "dataset/3e0c2b10-259f-4cdf-acd2-78497f09d441/resource/8e0ab64a-f294-409b-b576-0f2d8398bc4d/download/docentes.csv",
+                    "data_type" : "csv",
+                    "q" : "cargo.str.contains('PROFESSOR')"
+                },
+                'discentes': {
+                    "resource": "dataset/37ba75f0-333d-475a-b60a-8b87ac7e2129/resource/2682595c-5ed9-48a7-bb79-01135dfe3681/download/alunos.csv",
+                    "data_type" : "csv",
+                }
+            }
+        },
+        "unirio": { #Não atualizável
+            "consumer": "FileConsumer",
+            "main_url": "http://dados.unirio.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_do_Estado_do_Rio_de_Janeiro",
+            "colecoes": {
+                'cursos': {
+                    "resource": "dataset/bfc6f424-6137-4feb-9c4e-5512f8821415/resource/83d0d21f-63e1-4295-959a-1683e6a21937/download/cursosunirio2.csv",
+                    "data_type" : "csv",
+                }
+            }
+        },
+        "ufmt": { #Não atualizável
+            "consumer": "FileConsumer",
+            "main_url": "https://www.uftm.edu.br/",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_do_Triângulo_Mineiro",
+            "colecoes": {
+                'cursos': {
+                    "resource": "",
+                    "data_type" : "csv",
+                }
+            }
+        }
+
     },
 }
 

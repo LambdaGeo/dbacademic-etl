@@ -2,13 +2,13 @@ import requests
 import pandas as pd
 import json
 
-from dag_utils import normalize_collumns
+#from utils.dag_utils import normalize_collumns
 from time import sleep
 
 class FileConsumer:
     def __init__(self, main_url, total: int = None ):
-        self.main_url  =main_url
-        self.total = total
+        self.main_url  = main_url
+        self.total     = total
         
     def request(self, **params ) -> pd.DataFrame:
 
@@ -18,8 +18,6 @@ class FileConsumer:
             resource = params["resource"]
             if "data_type" in params:
                 data_type = params["data_type"]
-
-            
 
             self.url = f'{self.main_url}/{resource}'
             print(f'[INFO] - Getting data from {self.url} : data_type = {data_type}')
@@ -31,11 +29,11 @@ class FileConsumer:
                     sep = params["sep"]
                     decimal = params["decimal"]
                 
-                #data = pd.read_csv(self.url, sep=sep, decimal=decimal, encoding='ISO-8859-1')
-                data = pd.read_csv(self.url, sep=sep, decimal=decimal, encoding='UTF-8') #ifro é utf8, talvez vai ter que virar parametro
-                
-                
-                
+                data = pd.read_csv(self.url, sep=sep, decimal=decimal, encoding='UTF-8',on_bad_lines='skip') #ifro é utf8, talvez vai ter que virar parametro
+
+            elif data_type == 'xls':
+                data = pd.read_excel(self.url, sheet_name=0, header=0, engine='openpyxl')
+
             elif data_type == 'json':
                 headers = {
                     'Content-Type': 'application/json'
@@ -65,12 +63,8 @@ class FileConsumer:
 
 class CkanConsumer:
     def __init__(self, main_url, total = 10):
-        #params = params
         self.total = total
-
-        
         self.url = f'{main_url}/api/action/datastore_search'
-        
 
     def request(self, **params) -> pd.DataFrame:
         self.resource_id = params["resource_id"]
@@ -83,10 +77,9 @@ class CkanConsumer:
             params['offset'] =  0
 
         data = []
-
         
         #print (params)
-        response = requests.get(self.url, params=params) # deu erro no univasf
+        response = requests.get(self.url, params=params,verify=False)
         total = response.json()['result']['total']
         if total > self.total:
             total = self.total
@@ -98,12 +91,12 @@ class CkanConsumer:
         while len(data) < total:
             params['offset'] = len(data)
             print(f'[INFO] - Getting data from {self.url} on resource {self.resource_id} at offset {len(data)}')
-            response = requests.get(self.url, params=params)
+            response = requests.get(self.url, params=params, verify=False)
             while response.status_code != 200:
-                print(f'[ERROR] - Response code {response.status_code} from {self.url} on resource {resource_id} at offset {len(data)}')
+                print(f'[ERROR] - Response code {response.status_code} from {self.url} on resource {self.resource_id} at offset {len(data)}')
                 print(f'[INFO] - Waiting 5 seconds before trying again')
                 sleep(5)
-                response = requests.get(self.url, params=params)
+                response = requests.get(self.url, params=params, verify=False)
             data.extend(response.json()['result']['records'])
         print(f'[INFO] - Total of {len(data)} records retrieved from {self.url} on resource {self.resource_id}')
         #Reassembling the dataframe
