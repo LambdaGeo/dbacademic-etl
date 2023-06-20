@@ -22,7 +22,7 @@ class FileConsumer:
             self.url = f'{self.main_url}/{resource}'
             print(f'[INFO] - Getting data from {self.url} : data_type = {data_type}')
             if data_type == 'csv':
-                sep = ","
+                sep = "," #TODO ajustar para separador ;
                 decimal = '.'
 
                 if "sep" in params and 'decimal' in params:

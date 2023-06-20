@@ -315,7 +315,7 @@ config_dags = {
         },
         "ufersa": {
             "consumer": "CkanConsumer",
-            "main_url": "https://dadosabertos.ufersa.edu.br/",
+            "main_url": "https://dadosabertos.ufersa.edu.br",
             "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_Rural_do_Semi-Árido",
             "colecoes": {
                 "cursos"   : {"resource_id": "98e89cf8-4f36-451f-994a-29179c018ee0"}
@@ -323,12 +323,40 @@ config_dags = {
         },
         "ufscar": {
             "consumer": "CkanConsumer",
-            "main_url": "https://dados.ufscar.br/",
+            "main_url": "https://dados.ufscar.br",
             "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_de_São_Carlos",
             "colecoes": {
                 "docentes" : {"resource_id": "8ffe29fe-415e-43d0-bb95-887e0b209cef","q": "Professor"},
                 "cursos"   : {"resource_id": "f6f03301-42c9-4d23-80c3-75b1582a8020"},
                 "discentes": {"resource_id": "50578feb-70c6-44ee-8425-a7b5b15c8bd5"}
+            },
+        },
+        "utfpr": {
+            "consumer": "CkanConsumer",
+            "main_url": "http://dados.utfpr.edu.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Tecnológica_Federal_do_Paraná",
+            "colecoes": {
+                "docentes" : {"resource_id": "3475ec4b-c807-411f-a134-a07862eb403f","q": "Professor"},
+                "cursos"   : {"resource_id": "270d0fce-380f-4db8-899f-cde38630af9b"},
+                "discentes": {"resource_id": "fd63c8e9-2295-4ee8-9e09-aaad17dc508d"}
+            },
+        },
+        "uffs": {
+            "consumer": "CkanConsumer",
+            "main_url": "https://dados.uffs.edu.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_da_Fronteira_Sul",
+            "colecoes": {
+                "docentes" : {"resource_id": "1e801321-6e0b-4716-ba1d-ce79919e87da","q": "PROFESSOR"},
+                "cursos"   : {"resource_id": "96ef79b5-a8d7-4aa6-b0ad-24607bb7eda5"}
+            },
+        },
+        "unila": {
+            "consumer": "CkanConsumer",
+            "main_url": "https://dados.unila.edu.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_da_Integração_Latino-Americana",
+            "colecoes": {
+                "cursos"   : {"resource_id": "8fb54233-582c-4604-90db-318a0aaf3d4a"},
+                "discentes": {"resource_id": "194dacdd-d152-41db-9c5b-7ed33d24e58a"}
             },
         },
         "ifpb": { 
@@ -404,7 +432,7 @@ config_dags = {
             "main_url": "https://dados.ufg.br",
             "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_de_Goiás",
             "colecoes": {
-                "docentes": { #Arquivo zipado
+                "docentes": {
                     "resource": "dataset/c4d928ed-77e9-44c4-9c0d-77852b19c4c1/resource/b84f8ffb-aabd-4355-b41c-2d8843f579d9/download/da_servidores.csv",
                     "data_type" : "csv"
                 },
@@ -573,11 +601,34 @@ config_dags = {
         },
         "ufmt": { #Não atualizável
             "consumer": "FileConsumer",
-            "main_url": "https://www.uftm.edu.br/",
+            "main_url": "https://sistemas.uftm.edu.br",
             "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_do_Triângulo_Mineiro",
             "colecoes": {
+                'docentes': {
+                    "resource": "integrado/?to=RTZjcGZxTGFsSkFOOXRhSkpVdm5ELzBmWjZPUjNwZVNDdzA3NzFoRzcxenlYcG9nTDdyZ3YyT1QyanU0Y2pMYXk3Q21DTUMySS9PWXlYWklyM2NaellvRlVTRVVZeVhodnBGZ2RVQkw0VkJza3Y3b2VhV2NmVmZIN1I5VmFCNng3K1ZpV1BLMnNrZE84dmk3NW1YNGVRK0FHWTBOTEQzNXk3MmE5SVhRR2NwRmN0QWV2dVd0ZHI5Z00zVTQ3ZTNq&secret=uftm",
+                    "data_type" : "csv",
+                },
                 'cursos': {
-                    "resource": "",
+                    "resource": "integrado/?to=RTZjcGZxTGFsSkFOOXRhSkpVdm5ELzBmWjZPUjNwZVNDdzA3NzFoRzcxenlYcG9nTDdyZ3YyT1QyanU0Y2pMYXk3Q21DTUMySS9PWXlYWklyM2NaellvRlVTRVVZeVhodnBGZ2RVQkw0VkJza3Y3b2VhV2NmVmZIN1I5VmFCNng3K1ZpV1BLMnNrZE84dmk3NW1YNGVUNjJWWWVwblVDb2hBaHFBYkQrZ3VHckNLdTZCWHAwNEVZbGpacUpqR3Nn&secret=uftm",
+                    "data_type" : "csv",
+                },
+                'discentes': {
+                    "resource": "integrado/?to=RTZjcGZxTGFsSkFOOXRhSkpVdm5ELzBmWjZPUjNwZVNDdzA3NzFoRzcxenlYcG9nTDdyZ3YyT1QyanU0Y2pMYXk3Q21DTUMySS9PWXlYWklyM2NaellvRlVTRVVZeVhodnBGZ2RVQkw0VkJza3Y3b2VhV2NmVmZIN1I5VmFCNng3K1ZpV1BLMnNrZE84dmk3NW1YNGVZeWJjeS8vNTRjanVvYnAvK09nQjNaRVpGeU9wZjlydlRETzZOZXBzWXBW&secret=uftm",
+                    "data_type" : "csv",
+                }
+            }
+        },
+        "uff": { #Não atualizável
+            "consumer": "FileConsumer",
+            "main_url": "https://dados.uff.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_Fluminense",
+            "colecoes": {
+                'docentes': {
+                    "resource": "dataset/be9ff610-b4ec-4f8a-8fee-b6bb9fc55d7a/resource/4b96d1f1-c4f1-4de9-b0e8-bb6f2c98fbc7/download/rh-docentes-2022-2.csv",
+                    "data_type" : "csv",
+                },
+                'cursos': {
+                    "resource": "dataset/e4cab554-8023-4562-8a5f-623439076b45/resource/1f73421a-d377-4b4d-bcd5-004a0a590ee5/download/grad-cursos-2022-2.csv",
                     "data_type" : "csv",
                 }
             }
