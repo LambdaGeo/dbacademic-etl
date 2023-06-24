@@ -213,14 +213,3 @@ def dynamic_create_dag(dag_id:str, institute, conf, generic_mapper, schedule_int
     
     
     return dag
-
-def normalize_collumns(data:pd.DataFrame):
-    #All collumns to lowercase
-    data.columns = data.columns.str.lower()
-    #Remove spaces
-    data.columns = data.columns.str.replace(' ', '_')
-    #Remove special characters
-    data.columns = data.columns.str.replace('[^A-Za-z0-9]+', '_')
-    #Remove accents
-    data.columns = data.columns.str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8')
-    return data
