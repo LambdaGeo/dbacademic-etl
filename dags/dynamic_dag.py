@@ -66,8 +66,8 @@ config_dags = {
         },
         "discentes": {
             "nome": ["nome", "nome_discente","co_matricula","cod_pessoa","id_nome"],
-            "id": ["ra", "matricula","matrícula","co_matricula","cod_matricula","_id"],
-            "matricula": ["ra", "matricula","matrícula","co_matricula","cod_matricula"],
+            "id": ["ra", "matricula","matrícula","co_matricula","cod_matricula","_id","id"],
+            "matricula": ["ra", "matricula","matrícula","co_matricula","cod_matricula","_id","id"],
             "sexo": ["sexo","sg_sexo","genero"],
             "data_ingresso": ["data_inicio","dt_data_inicio"],
             "codigo_curso": ["id_curso","co_curso"],
@@ -492,7 +492,7 @@ config_dags = {
                 }
             },
         },
-        "ifpa": { 
+        "ifpa": {
             "consumer": "FileConsumer",
             "main_url": "https://pda.ifpa.edu.br",
             "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_do_Pará",
@@ -502,11 +502,12 @@ config_dags = {
                     "data_type" : "csv",
                     'sep'       : ';',
                     "encoding"  : "ISO-8859-1",
+                    "index_col" : "id"
                 }
             },
         },
         "ifrn": { 
-            "consumer": "FileConsumer",
+            "consumer": "FileConsumer",#Mudar para api consumer
             "main_url": "https://dados.ifrn.edu.br",
             "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_do_Rio_Grande_do_Norte",
             "colecoes": {
