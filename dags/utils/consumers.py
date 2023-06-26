@@ -1,9 +1,12 @@
 import requests
 import pandas as pd
 import json
+import ssl
 
 #from dag_utils import normalize_collumns
 from time import sleep
+
+ssl._create_default_https_context = ssl._create_unverified_context
 
 class FileConsumer:
     def __init__(self, main_url, total: int = None ):
@@ -25,16 +28,21 @@ class FileConsumer:
 
             self.url = f'{self.main_url}/{resource}'
             print(f'[INFO] - Getting data from {self.url} : data_type = {data_type}')
+            
+            #data = requests.get(self.url, allow_redirects=True,verify=False)
+            #print(data.content.decode(encoding))
             if data_type == 'csv':
-                sep = "," #TODO ajustar para separador ;
+                sep = ","
                 decimal = '.'
 
-                if "sep" in params and 'decimal' in params:
+                if "sep" in params:
                     sep = params["sep"]
+
+                if'decimal' in params:
                     decimal = params["decimal"]
                 
-                df = pd.read_csv(self.url, sep=sep, decimal=decimal, encoding=encoding,on_bad_lines='skip') #ifro é utf8, talvez vai ter que virar parametro
-
+                #IFCE(discentes) está com o erro http.client.IncompleteRead 
+                df = pd.read_csv(self.url, sep=sep, decimal=decimal, encoding=encoding,on_bad_lines='skip')
             elif data_type == 'xls':
                 df = pd.read_excel(self.url, sheet_name=0, header=0, engine='openpyxl')
 
@@ -59,9 +67,18 @@ class FileConsumer:
                 df.fillna('Desconhecido', inplace=True) ## se for tudo string, pode dar erro
                 df = df.query(params['query'])
                 print (df)
-                
+            
+            if "index_col" in params:
+                df[params['index_col']] = df.index
+                print(df.head())
+            
             if self.total:
                 df = df.iloc[:self.total] 
+            #Print Collumns
+            print(df.columns)
+            df = normalize_collumns(df)
+            "---After---"
+            print(df.columns)
 
             return df  
 
@@ -72,25 +89,26 @@ class CkanConsumer:
     #COlocar campo da versão
     def request(self, **params) -> pd.DataFrame:
         self.resource_id = params["resource_id"]
+        transform_params = params.copy()
         if 'limit' not in params:
             limit = 10000
             if self.total < 1000:
                 limit = self.total
             params['limit'] = limit
+
         if 'offset' not in params:
             params['offset'] =  0
 
         if "query" in params:
-            query = params['query']
             del params['query']
-        req_params = params.copy()
 
         data = []
         
         #print (params)
-        response = requests.get(self.url, params=req_params,verify=False,)
+        response = requests.get(self.url, params=params,verify=False,)
         print(f'[INFO] - Getting data from {response.url}')
         print(f'[INFO] - Status:{response.status_code}')
+        print(response.json())
         total = response.json()['result']['total']
         if total > self.total:
             total = self.total
@@ -113,11 +131,11 @@ class CkanConsumer:
         df = pd.DataFrame(data)
         df = normalize_collumns(df)
 
-        if "query": # Referenciada antes de ser criada, VALIDAR.
+        if "query" in transform_params:
                 #colunas_str = data.dtypes[data.dtypes == 'str'].index
                 #data[colunas_str].fillna('Desconhecido', inplace=True) # todo
                 df.fillna('Desconhecido', inplace=True) ## se for tudo string, pode dar erro
-                df = df.query(params['query'])
+                df = df.query(transform_params['query'])
                 print (df)
         
         return df
@@ -128,7 +146,7 @@ def normalize_collumns(data:pd.DataFrame):
     #Remove spaces
     data.columns = data.columns.str.replace(' ', '_')
     #Remove special characters
-    data.columns = data.columns.str.replace('[^A-Za-z0-9]+', '_')
+    #data.columns = data.columns.str.replace('[^A-Za-z0-9]+', '_')
     #Remove accents
     data.columns = data.columns.str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8')
     return data

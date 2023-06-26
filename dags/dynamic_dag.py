@@ -31,6 +31,7 @@ config_dags = {
                 "NOME SERVIDOR",
                 "SERVIDOR",
                 "Nome do Servidor",
+                "nome_do_servidor",
                 "Nome",
                 "NOME_FUNCIONARIO",
                 "nome_servidor",
@@ -44,10 +45,11 @@ config_dags = {
                 "Matrícula",
                 "Matricula",
                 "_id",
+                "id",
                 "vinculo_servidor",
                 "CodigoServidor",
             ],
-            "matricula": ["Matrícula","SIAPE","Siape","MATRICULA","siape", "matricula", "vinculo_servidor", "CodigoServidor", "_id"],
+            "matricula": ["Matrícula","SIAPE","Siape","MATRICULA","siape", "matricula","matrícula", "vinculo_servidor", "CodigoServidor", "id","_id"],
             "sexo": ["sexo", "Sexo"],
             "formacao": [
                 "formacao",
@@ -60,22 +62,21 @@ config_dags = {
                 "TITULAÇÃO"
             ],
             "nome_lotacao": ["Órgão de Lotação (SIAPE)", "setor lotacao", "campus lotacao siape","campus lotacao siape"],
-            "codigo_lotacao": ["id_unidade_lotacao", "CÓDIGO DA UNIDADE ORGANIZACIONAL","setor_siape"],
             "email" : ["email"]
         },
         "discentes": {
-            "nome": ["nome", "nome_discente"],
-            "id": ["ra", "matricula"],
-            "matricula": ["ra", "matricula","co_matricula"],
-            "sexo": ["sexo","sg_sexo"],
+            "nome": ["nome", "nome_discente","co_matricula","cod_pessoa","id_nome"],
+            "id": ["ra", "matricula","matrícula","co_matricula","cod_matricula","_id"],
+            "matricula": ["ra", "matricula","matrícula","co_matricula","cod_matricula"],
+            "sexo": ["sexo","sg_sexo","genero"],
             "data_ingresso": ["data_inicio","dt_data_inicio"],
             "codigo_curso": ["id_curso","co_curso"],
-            "nome_curso": ["curso","nm_curso"],
+            "nome_curso": ["curso","nm_curso","nome_curso"],
         },
         "cursos": {
-            "nome": ["nome", "nome_curso", "nome curso","nome do curso","curso",'descricao',"nm_curso"],
-            "id": ["id_curso","_id","id","co_curso"],
-            "codigo": ["id_curso","I N E P","_id","co_curso"],
+            "nome": ["nome", "nome_curso", "nome curso","nome_do_curso","curso",'descricao',"nm_curso","nome-do-curso"],
+            "id": ["id","id_curso","i_n_e_p","_id","co_curso",'cod_curso','codigo_do_curso'],
+            "codigo": ["id","id_curso","i_n_e_p","_id","co_curso",'cod_curso','codigo_do_curso'],
             "codigo_unidade": ["id_unidade_responsavel"],
         },
         "unidades": {
@@ -181,12 +182,13 @@ config_dags = {
                 "docentes": {"resource_id": "ecd0ad77-2125-42c4-a8d0-c3fe012731dd"}
             },
         },
-        "ifms": {
+        "ifms": { #Não Atualizavel
             "consumer": "CkanConsumer",
             "main_url": "http://dados.ifms.edu.br",
             "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_de_Mato_Grosso_do_Sul",
             "colecoes": {
-                "docentes" : {"resource_id": "4ccd20e6-703d-4682-a300-26a0e3788a4f"},
+                "docentes" : {"resource_id": "4ccd20e6-703d-4682-a300-26a0e3788a4f",
+                              "query": "cargo_emprego.str.contains('PROF')"},
                 "discentes": {"resource_id": "7d7650fe-84a3-4927-8285-b1d48c766f6b"},
                 "cursos"   : {"resource_id": "b1913941-fcd6-4216-882f-fc2a81121bcc"}
 
@@ -364,10 +366,34 @@ config_dags = {
         },
         "ifal": {
             "consumer": "CkanConsumer",
-            "main_url": "https://dadosabertos.ifal.edu.br/",
+            "main_url": "https://dadosabertos.ifal.edu.br",
             "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_de_Educação,_Ciência_e_Tecnologia_de_Alagoas",
             "colecoes": {
                 "cursos"   : {"resource_id": "b3dae945-84a4-488b-a350-207f6ed6f6a7"},
+            },
+        },
+        "ifmt": { #Não atualizavel
+            "consumer": "CkanConsumer",
+            "main_url": "https://dados.ifmt.edu.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_de_Educação,_Ciência_e_Tecnologia_de_Mato_Grosso",
+            "colecoes": {
+                "docentes" : {"resource_id": "68c912d6-95fe-42a2-b80e-c9dc3b200fa6",
+                              "query": "cargo_emprego.str.contains('PROF')"},
+                "cursos"   : {"resource_id": "c631117e-075f-4a7e-b710-455ec79a21f3"},
+                "discentes": {"resource_id": "1535c8e2-f1c4-4dcf-9948-dc734522d040"},
+            },
+        },
+        "ifpb": { 
+            "consumer": "CkanConsumer",
+            "main_url": "https://dados.ifpb.edu.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_da_Paraíba",
+            "colecoes": {
+                "docentes" : {
+                    "resource_id": "c2406ee2-fa8f-4500-a44f-0ce8fb6bb1b7",
+                    "query" : "cargo_emprego.str.contains('PROFESSOR')"
+                    },
+                "cursos"   : {"resource_id": "d6314b94-1623-4aa6-9e73-cf2cbd227ac3"},
+                "discentes": {"resource_id": "29c2b593-ed14-4b73-b30c-d6135f072cf7"},
             },
         },
         "ifba": { 
@@ -382,7 +408,9 @@ config_dags = {
                 "cursos": {
                     "resource"  : "dataset/4f9103e2-a020-4e2e-91b0-6efd70978b95/resource/4e739636-cf95-4098-8220-b84ca6574fda/download/cursos-ofertados-de-graduacao.csv",
                     "data_type" : "csv",
-                    "sep"       : ";"
+                    "sep"       : ";",
+                    "encoding"  : "ISO-8859-1",
+                    "index_col" : "id"
                 }
             },
         },
@@ -394,33 +422,86 @@ config_dags = {
                 "docentes": {
                     "resource"  : "portal/wp-content/uploads/2021/09/Servidores-docentes.csv",
                     "data_type" : "csv",
-                    "sep"       : ";"
+                    "sep"       : ";",
+                    "index_col" : "id",
                     },
                 "discentes": {
                     "resource"  : "portal/wp-content/uploads/2021/09/GRADUACAO_Cursos_estudantes_ciclo_unidade-PARA-PUBLICACAO.csv",
                     "data_type" : "csv",
                     "sep"       : ";",
-                    "encoding"  : "ISO-8859-1"
+                    "encoding"  : "ISO-8859-1",
+                    "index_col" : "id",
                     },
                 "cursos": {
                     "resource"  : "portal/wp-content/uploads/2022/05/Cursos-2020.csv",
                     "data_type" : "csv",
                     "sep"       : ";",
-                    "encoding"  : "ISO-8859-1"
+                    "encoding"  : "ISO-8859-1",
+                    "index_col" : "id"
                 }
             },
         },
-        "ifpb": { 
+        "ifce": { 
             "consumer": "FileConsumer",
-            "main_url": "https://dados.ifpb.edu.br",
-            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_da_Paraíba",
+            "main_url": "https://ifce.edu.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_de_Educação,_Ciência_e_Tecnologia_do_Ceará",
             "colecoes": {
-                "docentes": {
-                    "resource": "dataset/26d67876-0cb2-41a4-83ed-7bde06eb736c/resource/0d03ee6a-2af1-4dde-9b3d-90419c48fabe/download/servidores.json",
-                    "query" : "cargo_emprego.str.contains('PROFESSOR')"
+                "discentes": {
+                    "resource"  : "dados-abertos-arquivos/matriculas/ifce-matriculas.csv/@@download/file/IFCE-MATRICULAS.csv",
+                    "data_type" : "csv",
                     },
                 "cursos": {
-                    "resource": "dataset/f2902132-dfc9-4fba-98ab-40346075224e/resource/47c6e782-6ef9-4942-8361-38d8aac22922/download/cursos.json"
+                    "resource"  : "dados-abertos-arquivos/cursos/ifce-cursos.csv/@@download/file/IFCE-CURSOS.csv",
+                    "data_type" : "csv",
+                }
+            },
+        },
+        "ifes": { 
+            "consumer": "FileConsumer",
+            "main_url": "https://www.ifes.edu.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_do_Espírito_Santo",
+            "colecoes": {
+                "docentes": {
+                    "resource"  : "images/stories/files/Acesso_a_informacao/PDA/LISTA-DE-SERVIDORES-DOCENTES-2023.csv",
+                    "data_type" : "csv",
+                    "index_col" : "id_nome",
+                    "encoding"  : "ISO-8859-1"
+                    },
+                "discentes": {
+                    "resource"  : "images/stories/files/Acesso_a_informacao/PDA/ALUNOS-DA-GRADUACAO-2023-1.csv",
+                    "data_type" : "csv",
+                    "index_col" : "id_nome",
+                    "encoding"  : "ISO-8859-1"
+                    },
+                "cursos": {
+                    "resource"  : "images/stories/files/Acesso_a_informacao/PDA/RELACAO-DE-CURSOS-DE-GRADUACAO_-_2021.csv",
+                    "data_type" : "csv",
+                    "sep"       : ";"
+                }
+            },
+        },
+        "ifmg": { 
+            "consumer": "FileConsumer",
+            "main_url": "https://dadosabertos.ifmg.edu.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_de_Educação,_Ciência_e_Tecnologia_de_Minas_Gerais",
+            "colecoes": {
+                "cursos": {
+                    "resource"  : "dataset/f427a896-9207-4db1-85bb-52d0610239d1/resource/9700ae7c-5b0d-4f89-8a19-939db7852267/download/conjunto-de-dados-cursos-ofertados.csv",
+                    "data_type" : "csv",
+                    "index_col" : "id"
+                }
+            },
+        },
+        "ifpa": { 
+            "consumer": "FileConsumer",
+            "main_url": "https://pda.ifpa.edu.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_do_Pará",
+            "colecoes": {
+                "discentes": {
+                    "resource"  : "dataset/e4d792c3-1c67-48f6-8dcb-220118cef95e/resource/ab3fcf16-c545-49b5-9c30-07fed589db6f/download/pda_dados_egressos_ifpa-jan2022.csv",
+                    "data_type" : "csv",
+                    'sep'       : ';',
+                    "encoding"  : "ISO-8859-1",
                 }
             },
         },
