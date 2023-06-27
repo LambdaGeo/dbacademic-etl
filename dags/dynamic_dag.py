@@ -59,29 +59,30 @@ config_dags = {
                 "TITULAÇÃO",
                 "NIVEL ESCOLARIDADE",
                 "Titulacao",
-                "TITULAÇÃO"
+                "TITULAÇÃO",
+                "titulacao"
             ],
-            "nome_lotacao": ["Órgão de Lotação (SIAPE)", "setor lotacao", "campus lotacao siape","campus lotacao siape"],
+            "nome_lotacao": ["Órgão de Lotação (SIAPE)", "setor_lotacao","campus_lotacao_siape",'campus','setor_siape','setor_suape'],
             "email" : ["email"]
         },
         "discentes": {
-            "nome": ["nome", "nome_discente","co_matricula","cod_pessoa","id_nome"],
-            "id": ["ra", "matricula","matrícula","co_matricula","cod_matricula","_id","id"],
-            "matricula": ["ra", "matricula","matrícula","co_matricula","cod_matricula","_id","id"],
-            "sexo": ["sexo","sg_sexo","genero"],
+            "nome"         : ["nome", "nome_discente","co_matricula","cod_pessoa","id_nome"],
+            "id"           : ["ra", "matricula","matrícula","co_matricula","cod_matricula","_id","id"],
+            "matricula"    : ["ra", "matricula","matrícula","co_matricula","cod_matricula","_id","id"],
+            "sexo"         : ["sexo","sg_sexo","genero"],
             "data_ingresso": ["data_inicio","dt_data_inicio"],
-            "codigo_curso": ["id_curso","co_curso"],
-            "nome_curso": ["curso","nm_curso","nome_curso"],
+            "codigo_curso" : ["id_curso","co_curso"],
+            "nome_curso"   : ["curso","nm_curso","nome_curso"],
         },
         "cursos": {
-            "nome": ["nome", "nome_curso", "nome curso","nome_do_curso","curso",'descricao',"nm_curso","nome-do-curso"],
-            "id": ["id","id_curso","i_n_e_p","_id","co_curso",'cod_curso','codigo_do_curso'],
-            "codigo": ["id","id_curso","i_n_e_p","_id","co_curso",'cod_curso','codigo_do_curso'],
+            "nome"          : ["nome", "nome_curso", "nome curso","nome_do_curso","curso",'descricao',"nm_curso","nome-do-curso"],
+            "id"            : ["id","id_curso","i_n_e_p","_id",'codigo',"co_curso",'cod_curso','codigo_do_curso'],
+            "codigo"        : ["id","id_curso","i_n_e_p","_id",'codigo',"co_curso",'cod_curso','codigo_do_curso'],
             "codigo_unidade": ["id_unidade_responsavel"],
         },
         "unidades": {
-            "nome": ["nome_unidade"],
-            "id": ["id_unidade"],
+            "nome"  : ["nome_unidade"],
+            "id"    : ["id_unidade"],
             "codigo": ["id_unidade"],
         },
     },
@@ -395,6 +396,56 @@ config_dags = {
                 "cursos"   : {"resource_id": "d6314b94-1623-4aa6-9e73-cf2cbd227ac3"},
                 "discentes": {"resource_id": "29c2b593-ed14-4b73-b30c-d6135f072cf7"},
             },
+        },"ifpi": { 
+            "consumer": "CkanConsumer",
+            "main_url": "https://dados.ifpi.edu.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_do_Piauí",
+            "colecoes": {
+                "docentes" : {
+                    "resource_id": "f69888cc-e9eb-4071-af64-37d5a6fdd881",
+                    "query" : "cargo_classe.str.contains('CLASSE')"
+                    }
+            },
+        },
+        "ifrn": { 
+            "consumer": "CkanConsumer",
+            "main_url": "https://dados.ifrn.edu.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_do_Rio_Grande_do_Norte",
+            "colecoes": {
+                "docentes": {
+                    "resource_id": "9adf1491-9e7c-4950-ab02-d3e12af37ec2",
+                    "query" : "cargo.str.contains('PROFESSOR')"
+                    },
+                "cursos": { 
+                    "resource_id": "112c4b0c-7be8-498c-a37c-33bb72d814ea"
+                },
+                "discentes": {
+                    "resource_id": "1b4b2637-08d0-443a-a807-d35719185f59"
+                }
+            },
+        },
+        "ifrj": { 
+            "consumer": "FileConsumer",
+            "main_url": "https://portal.ifrj.edu.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_do_Rio_de_Janeiro",
+            "colecoes": {
+                "docentes": {
+                    "resource"  : "sites/default/files/IFRJ/Acesso%20%C3%A0%20Informa%C3%A7%C3%A3o/planilha_dgp_-_docentes.ods",
+                    "data_type" : "ods"
+                }
+            },
+        },
+        "ifrr": { #Ajustar formacao com números.
+            "consumer": "FileConsumer",
+            "main_url": "https://dados.ifrr.edu.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_de_Educação,_Ciência_e_Tecnologia_de_Roraima",
+            "colecoes": {
+                "docentes": {
+                    "resource"  : "dataset/6a324826-ae4f-4d54-9d93-a52c7e4ca359/resource/6ca0beae-bc12-47b7-84e5-eb82cd7f0730/download/professores-ebtt-ativos-maio2021.csv",
+                    "data_type" : "csv",
+                    "index_col" : "id"
+                }
+            },
         },
         "ifba": { 
             "consumer": "FileConsumer",
@@ -506,32 +557,21 @@ config_dags = {
                 }
             },
         },
-        "ifrn": { 
-            "consumer": "FileConsumer",#Mudar para api consumer
-            "main_url": "https://dados.ifrn.edu.br",
-            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_do_Rio_Grande_do_Norte",
-            "colecoes": {
-                "docentes": {
-                    "resource": "dataset/0c5c1c1a-7af8-4f24-ba37-a9eda0baddbb/resource/c3f64d5b-f2df-4ef2-8e27-fb4f10a7c3ea/download/dados_extraidos_recursos_servidores.json",
-                    "query" : "cargo.str.contains('PROFESSOR')"
-                    },
-                "cursos": { #Estão dentro de um array chamado componentes_curriculares
-                    "resource": "dataset/7b48f9d0-205d-46b1-8225-a3cc7d3973ff/resource/fe0e9d2c-1c02-4625-b692-13edcc3380ae/download/dados_extraidos_recursos_cursos-ofertados.json"
-                },
-                "discentes": {
-                    "resource": "dataset/d5adda48-f65b-4ef8-9996-1ee2c445e7c0/resource/00efe66e-3615-4d87-8706-f68d52d801d7/download/dados_extraidos_recursos_alunos-da-instituicao.json"
-                }
-            },
-        },
-        "ifro": { 
+        "ifro": { #Não atualizavél
             "consumer": "FileConsumer",
             "main_url": "https://dados.ifro.edu.br",
-            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_do_Rio_Grande_do_Norte",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_de_Educação,_Ciência_e_Tecnologia_de_Rondônia",
             "colecoes": {
                 "docentes": {
                     "resource": "dataset/cefffa4b-b662-438f-b2fa-1ab9fa35471c/resource/41b84d9d-135a-47f2-80e5-9da63123073d/download/docentes_disciplina_de_ingresso.csv",
                     "data_type" : "csv"
-                    },
+                },
+                "cursos": {
+                    "resource" : "dataset/1586db9e-b061-44ba-8377-4e82905e1b41/resource/05ed069f-b847-4d34-8dd0-21606d801a86/download/lista-de-cursos-2018.csv",
+                    "data_type": "csv",
+                    "sep"      : ";",
+                    "encoding" : "ISO-8859-1"
+                },
             },
         },
         "ufs": { #Dando timeout

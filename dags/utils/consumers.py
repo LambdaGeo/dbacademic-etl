@@ -46,6 +46,9 @@ class FileConsumer:
             elif data_type == 'xls':
                 df = pd.read_excel(self.url, sheet_name=0, header=0, engine='openpyxl')
 
+            elif data_type == 'ods':
+                df = pd.read_excel(self.url, engine='odf')
+
             elif data_type == 'json':
                 headers = {
                     'Content-Type': 'application/json'
