@@ -25,44 +25,35 @@ config_dags = {
     "mapeamento": {
         "docentes": {
             "nome": [
-                "NOME",
                 "nome",
                 "servidor",
-                "NOME SERVIDOR",
-                "SERVIDOR",
-                "Nome do Servidor",
-                "nome_do_servidor",
-                "Nome",
-                "NOME_FUNCIONARIO",
                 "nome_servidor",
-                "NomeServidor",
+                "nome_do_servidor",
+                "nome_funcionario",
+                "nomeservidor",
                 "nome_oficial"
             ],
-            "id": ["SIAPE", 
-                "Siape",
+            "id": [
                 "siape",
                 "matricula",
-                "Matrícula",
+                "matrícula",
                 "Matricula",
                 "_id",
                 "id",
                 "vinculo_servidor",
-                "CodigoServidor",
+                "codigoservidor",
             ],
-            "matricula": ["Matrícula","SIAPE","Siape","MATRICULA","siape", "matricula","matrícula", "vinculo_servidor", "CodigoServidor", "id","_id"],
+            "matricula": ["matrícula","siape", "matricula", "vinculo_servidor", "codigoservidor", "id","_id"],
             "sexo": ["sexo", "Sexo"],
             "formacao": [
                 "formacao",
                 "escolaridade",
-                "TitulacaoServidor",
-                "Escolaridade",
-                "TITULAÇÃO",
-                "NIVEL ESCOLARIDADE",
-                "Titulacao",
-                "TITULAÇÃO",
-                "titulacao"
+                "titulacaoservidor",
+                "escolaridade",
+                "nivel_escolaridade",
+                "titulacao",
             ],
-            "nome_lotacao": ["Órgão de Lotação (SIAPE)", "setor_lotacao","campus_lotacao_siape",'campus','setor_siape','setor_suape'],
+            "nome_lotacao": ["orgao_de_lotacao_(siape)", "setor_lotacao","campus_lotacao_siape",'campus','setor_siape','setor_suape'],
             "email" : ["email"]
         },
         "discentes": {
@@ -75,7 +66,7 @@ config_dags = {
             "nome_curso"   : ["curso","nm_curso","nome_curso"],
         },
         "cursos": {
-            "nome"          : ["nome", "nome_curso", "nome curso","nome_do_curso","curso",'descricao',"nm_curso","nome-do-curso"],
+            "nome"          : ["nome", "nome_curso","nome_do_curso","curso",'descricao',"nm_curso","nome-do-curso","fullname"],
             "id"            : ["id","id_curso","i_n_e_p","_id",'codigo',"co_curso",'cod_curso','codigo_do_curso'],
             "codigo"        : ["id","id_curso","i_n_e_p","_id",'codigo',"co_curso",'cod_curso','codigo_do_curso'],
             "codigo_unidade": ["id_unidade_responsavel"],
@@ -424,6 +415,20 @@ config_dags = {
                 }
             },
         },
+        "ifsudestemg": { 
+            "consumer": "CkanConsumer",
+            "main_url": "https://dados.ifsudestemg.edu.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_do_Sudeste_de_Minas_Gerais",
+            "colecoes": {
+                "docentes": {
+                    "resource_id": "d73ae20f-e7de-4e88-a6fc-63a5ba8a92bd",
+                    "query" : "cargo.str.contains('PROFESSOR')"
+                    },
+                "cursos": { 
+                    "resource_id": "5407ff7a-9fed-4162-9ba6-aa7813bf8311"
+                }
+            },
+        },
         "ifrj": { 
             "consumer": "FileConsumer",
             "main_url": "https://portal.ifrj.edu.br",
@@ -442,7 +447,7 @@ config_dags = {
             "colecoes": {
                 "docentes": {
                     "resource"  : "dataset/6a324826-ae4f-4d54-9d93-a52c7e4ca359/resource/6ca0beae-bc12-47b7-84e5-eb82cd7f0730/download/professores-ebtt-ativos-maio2021.csv",
-                    "data_type" : "csv",
+                    "d                        }ata_type" : "csv",
                     "index_col" : "id"
                 }
             },
@@ -461,6 +466,70 @@ config_dags = {
                     "data_type" : "csv",
                     "sep"       : ";",
                     "encoding"  : "ISO-8859-1",
+                    "index_col" : "id"
+                }
+            },
+        },
+        "ifpr": { 
+            "consumer": "FileConsumer",
+            "main_url": "https://dadosabertos.ifpr.edu.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_do_Paraná",
+            "colecoes": {
+                "docentes": {
+                    "resource"  : "dataset/285aca65-0f60-4ddc-84fc-7d419c2e8e4b/resource/57a173d4-b262-4336-884e-6d0f835fddf3/download/quadro-de-pessoal-maio_2023.csv",
+                    "data_type" : "csv",
+                    "sep"       : ";",
+                    "encoding"  : "ISO-8859-1",
+                }
+            },
+        },
+        "ifpe": { 
+            "consumer": "FileConsumer",
+            "main_url": "https://dados.ifpe.edu.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_de_Educação,_Ciência_e_Tecnologia_de_Pernambuco",
+            "colecoes": {
+                "cursos": {
+                    "resource"  : "dataset/72066ed6-ba79-4ac6-9589-5dcb5222aa21/resource/caf954ed-52dc-4a61-a2c8-282cf029ea64/download/cursos.csv",
+                    "data_type" : "csv",
+                }
+            },
+        },
+        "ifsp": { 
+            "consumer": "FileConsumer",
+            "main_url": "https://drive.ifsp.edu.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_de_Educação,_Ciência_e_Tecnologia_de_São_Paulo",
+            "colecoes": {
+                "cursos": {
+                    "resource"  : "s/lGrKkADGzDX5UbK/download",
+                    "data_type" : "csv",
+                }
+            },
+        },
+        "ifs": {  #TODO Erro 403
+            "consumer": "FileConsumer",
+            "main_url": "https://dados.ifs.edu.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_de_Educação,_Ciência_e_Tecnologia_de_São_Paulo",
+            "colecoes": {
+                "docentes": {
+                    "resource"  : "dataset/42a5d734-3149-4ca7-889e-fb6a73f96a18/resource/630bbf3d-1170-47b1-bb59-7d2876563c24/download/servidores.csv",
+                    "data_type" : "csv",
+                    "query"     : "cargo.str.contains('PROF')"
+                },
+                "cursos": {
+                    "resource"  : "dataset/cc7b829b-54fc-4c24-91cd-915fa81f98c1/resource/bcc5a381-701b-48b4-958a-03c55ebbfdcd/download/catalago_cursos.csv",
+                    "data_type" : "csv",
+                }
+            },
+        },
+        "ifsul": {  
+            "consumer": "FileConsumer",
+            "main_url": "http://www.ifsul.edu.br",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_de_Educação,_Ciência_e_Tecnologia_sul-rio-grandense",
+            "colecoes": {
+                "docentes": {
+                    "resource"  : "component/k2/item/download/31763_b4fb06462d5c4f8495dc6b764f426f08",
+                    "data_type" : "xls",
+                    "query"     : "cargo.str.contains('Prof')",
                     "index_col" : "id"
                 }
             },
@@ -497,7 +566,7 @@ config_dags = {
             "main_url": "https://ifce.edu.br",
             "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_de_Educação,_Ciência_e_Tecnologia_do_Ceará",
             "colecoes": {
-                "discentes": {
+                "discentes": { #IFCE(discentes) está com o erro http.client.IncompleteRead
                     "resource"  : "dados-abertos-arquivos/matriculas/ifce-matriculas.csv/@@download/file/IFCE-MATRICULAS.csv",
                     "data_type" : "csv",
                     },

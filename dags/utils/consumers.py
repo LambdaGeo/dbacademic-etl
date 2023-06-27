@@ -40,8 +40,7 @@ class FileConsumer:
 
                 if'decimal' in params:
                     decimal = params["decimal"]
-                
-                #IFCE(discentes) está com o erro http.client.IncompleteRead 
+                 
                 df = pd.read_csv(self.url, sep=sep, decimal=decimal, encoding=encoding,on_bad_lines='skip')
             elif data_type == 'xls':
                 df = pd.read_excel(self.url, sheet_name=0, header=0, engine='openpyxl')
@@ -63,7 +62,12 @@ class FileConsumer:
                         continue
                     else:
                         raise Exception(f"[ERROR] - Status code {response.status_code}, {json.dumps(response)}")
-                
+            #Print Collumns
+            print(df.columns)
+            df = normalize_collumns(df)
+            "---After---"
+            print(df.columns)
+            
             if "query" in params:
                 #colunas_str = data.dtypes[data.dtypes == 'str'].index
                 #data[colunas_str].fillna('Desconhecido', inplace=True) # todo
@@ -76,12 +80,7 @@ class FileConsumer:
                 print(df.head())
             
             if self.total:
-                df = df.iloc[:self.total] 
-            #Print Collumns
-            print(df.columns)
-            df = normalize_collumns(df)
-            "---After---"
-            print(df.columns)
+                df = df.iloc[:self.total]
 
             return df  
 
@@ -93,7 +92,7 @@ class CkanConsumer:
     def request(self, **params) -> pd.DataFrame:
         self.resource_id = params["resource_id"]
         transform_params = params.copy()
-        if 'limit' not in params:
+        if 'limit' in params:
             limit = 10000
             if self.total < 1000:
                 limit = self.total
@@ -107,30 +106,29 @@ class CkanConsumer:
 
         data = []
         
-        #print (params)
         response = requests.get(self.url, params=params,verify=False,)
-        print(f'[INFO] - Getting data from {response.url}')
-        print(f'[INFO] - Status:{response.status_code}')
+        print(f'Getting data from {response.url}')
+        print(f'Status:{response.status_code}')
         print(response.json())
         total = response.json()['result']['total']
         if total > self.total:
             total = self.total
         #print (response.json())
-        print(f'[INFO] - Getting data from {response.url} at offset {len(data)} from {total}')
+        print(f'Getting data from {response.url} at offset {len(data)} from {total}')
 
         data.extend(response.json()['result']['records'])
 
         while len(data) < total:
             params['offset'] = len(data)
-            print(f'[INFO] - Getting data from {response.url} at offset {len(data)} from {total}')
+            print(f'Getting data from {response.url} at offset {len(data)} from {total}')
             response = requests.get(self.url, params=params, verify=False)
             while response.status_code != 200:
                 print(f'[ERROR] - Response code {response.status_code} from {self.url} on resource {self.resource_id} at offset {len(data)}')
-                print(f'[INFO] - Waiting 5 seconds before trying again')
+                print(f'Waiting 5 seconds before trying again')
                 sleep(5)
                 response = requests.get(self.url, params=params, verify=False)
             data.extend(response.json()['result']['records'])
-        print(f'[INFO] - Total of {len(data)} records retrieved from {self.url} on resource {self.resource_id}')
+        print(f'Total of {len(data)} records retrieved from {self.url} on resource {self.resource_id}')
         df = pd.DataFrame(data)
         df = normalize_collumns(df)
 
