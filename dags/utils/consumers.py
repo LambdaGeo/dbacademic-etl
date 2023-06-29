@@ -88,18 +88,19 @@ class CkanConsumer:
     def __init__(self, main_url, total = 10):
         self.total = total
         self.url = f'{main_url}/api/action/datastore_search'
-    #COlocar campo da versão
     def request(self, **params) -> pd.DataFrame:
         self.resource_id = params["resource_id"]
         transform_params = params.copy()
-        if 'limit' in params:
+        print(f'Parametos de chamada: {params}')
+        if 'limit' not in params:
             limit = 10000
-            if self.total < 1000:
-                limit = self.total
+            #if self.total < 1000:
+            #    limit = self.total
             params['limit'] = limit
 
         if 'offset' not in params:
             params['offset'] =  0
+        print(f'Novos parametos de chamada: {params}')
 
         if "query" in params:
             del params['query']
@@ -109,18 +110,17 @@ class CkanConsumer:
         response = requests.get(self.url, params=params,verify=False,)
         print(f'Getting data from {response.url}')
         print(f'Status:{response.status_code}')
-        print(response.json())
-        total = response.json()['result']['total']
-        if total > self.total:
-            total = self.total
-        #print (response.json())
-        print(f'Getting data from {response.url} at offset {len(data)} from {total}')
+        if response.status_code == 200:
+            self.total = response.json()['result']['total']
+        else:
+            raise Exception(f"[ERROR] - Status code {response.status_code}, {json.dumps(response)}")
+        print(f'Getting data from {response.url} at offset {len(data)} from {self.total}')
 
         data.extend(response.json()['result']['records'])
 
-        while len(data) < total:
+        while len(data) < self.total:
             params['offset'] = len(data)
-            print(f'Getting data from {response.url} at offset {len(data)} from {total}')
+            print(f'Getting data from {response.url} at offset {len(data)} from {self.total}')
             response = requests.get(self.url, params=params, verify=False)
             while response.status_code != 200:
                 print(f'[ERROR] - Response code {response.status_code} from {self.url} on resource {self.resource_id} at offset {len(data)}')
@@ -146,8 +146,6 @@ def normalize_collumns(data:pd.DataFrame):
     data.columns = data.columns.str.lower()
     #Remove spaces
     data.columns = data.columns.str.replace(' ', '_')
-    #Remove special characters
-    #data.columns = data.columns.str.replace('[^A-Za-z0-9]+', '_')
-    #Remove accents
+    #Remove accents special characters
     data.columns = data.columns.str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8')
     return data

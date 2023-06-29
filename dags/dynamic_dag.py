@@ -19,8 +19,6 @@ default_args = {
     'retry_delay': timedelta(minutes=5),
 }
 
-
-
 config_dags = {
     "mapeamento": {
         "docentes": {
@@ -31,7 +29,8 @@ config_dags = {
                 "nome_do_servidor",
                 "nome_funcionario",
                 "nomeservidor",
-                "nome_oficial"
+                "nome_oficial",
+                "nome_contratado"
             ],
             "id": [
                 "siape",
@@ -95,7 +94,7 @@ config_dags = {
             "main_url": "https://dados.ufca.edu.br",
             "colecoes": {
                 "docentes" : {"resource_id": "6b2dbca5-58f8-472e-bc6a-eb827e631873"},
-                "unidades" : {"resource_id": "406c5ac5-a8ff-4a9a-b343-83e1eb804725"},
+                #"unidades" : {"resource_id": "406c5ac5-a8ff-4a9a-b343-83e1eb804725"},
                 "cursos"   : {"resource_id": "5f31e620-a366-42c9-a54c-96da666c93b7"}
             },
         },
@@ -153,7 +152,8 @@ config_dags = {
             "consumer": "CkanConsumer",
             "main_url": "https://dadosabertos.ufms.br",
             "colecoes": {
-                "docentes" : {"resource_id": "a8ca7f30-0824-489b-8c70-faddcbd74f53","query": "Professor do Magisterio Superior"},
+                "docentes" : {"resource_id": "a8ca7f30-0824-489b-8c70-faddcbd74f53",
+                              "query": "cargo.str.contains('Professor do Magisterio Superior')"},
                 "cursos"   : {"resource_id": "ae830b77-fc5c-47fa-9717-5eb9ff4b4e40"},
                 "discentes": {"resource_id": "ebaa630c-848d-4df6-80bb-d87370e757b3"}
             },
@@ -658,14 +658,15 @@ config_dags = {
         },
         "unb": { #Não atualizável
             "consumer": "FileConsumer",
-            "main_url": "https://dados.unb.br",
+            "main_url": "http://dadosabertos.unb.br",
             "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_de_Brasília",
             "colecoes": {
                 #"docentes": { Arquivo zipado
                 #    "resource": "dataset/9b6891b9-3c87-4337-b1d7-6c4187b10d00/resource/4cf8c882-82ea-4a19-a775-3f062cd1cc62/download/dados_institucionais_docentes.7z",
                 #},
                 'cursos': {
-                    "resource": "dataset/cbae3cab-650f-487e-b936-0a5576ff757b/resource/539c24bf-e67f-4cd7-920a-6fd461435f88/download/cursos-de-graduao-03-2023.json",
+                    "resource": "dataset/cbae3cab-650f-487e-b936-0a5576ff757b/resource/e7f3a9fe-70cd-4161-b3c3-8ea37d2a9985/download/cursos-de-graduao-03-2023.csv",
+                    "data_type" : "csv"
                 },
             }
         },
@@ -693,13 +694,17 @@ config_dags = {
             "main_url": "https://dados.ufba.br",
             "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_da_Bahia",
             "colecoes": {
-                "docentes": {"cargo.str.contains('PROFESSOR')"
-                    "resource": "dataset/4ba39fb2-470d-45df-8e7c-be0faeb5c8a1/resource/e95d0d5e-e9f0-4821-915d-6b31a95d272e/download/docentes.csv",
-                    "data_type" : "csv"
+                "docentes": {
+                    "resource"  : "dataset/4ba39fb2-470d-45df-8e7c-be0faeb5c8a1/resource/e95d0d5e-e9f0-4821-915d-6b31a95d272e/download/docentes.csv",
+                    "data_type" : "csv",
+                    "sep"       : ";",
+                    "query"     :"cargo.str.contains('PROFESSOR')"
                 },
                 'cursos': { #Stricto Sensu
                     "resource": "dataset/bf507a53-2299-498c-a7f0-7e1e807aa149/resource/e9acf9fc-ce5b-449e-b639-207d93872888/download/cursos_pos.csv",
-                    "data_type" : "csv"
+                    "data_type" : "csv",
+                    "sep"       : ";",
+                    "index_col" : "id"
                 }
             }
         },
@@ -810,7 +815,10 @@ config_dags = {
                 'docentes': {
                     "resource": "images/ufabc/sugepe/bases_sugepe/bd_sugepe03_2020.csv",
                     "data_type" : "csv",
-                    "query" : "CARGO.str.contains('PROFESSOR MAGISTÉRIO SUPERIOR')"
+                    "query" : "cargo.str.contains('PROFESSOR')",
+                    "encoding" : "ISO-8859-1",
+                    "sep" : ";",
+                    "index_col" : "id"
                 }
             }
         },
@@ -849,14 +857,20 @@ config_dags = {
                 'docentes': {
                     "resource": "integrado/?to=RTZjcGZxTGFsSkFOOXRhSkpVdm5ELzBmWjZPUjNwZVNDdzA3NzFoRzcxenlYcG9nTDdyZ3YyT1QyanU0Y2pMYXk3Q21DTUMySS9PWXlYWklyM2NaellvRlVTRVVZeVhodnBGZ2RVQkw0VkJza3Y3b2VhV2NmVmZIN1I5VmFCNng3K1ZpV1BLMnNrZE84dmk3NW1YNGVRK0FHWTBOTEQzNXk3MmE5SVhRR2NwRmN0QWV2dVd0ZHI5Z00zVTQ3ZTNq&secret=uftm",
                     "data_type" : "csv",
+                    "sep" : ";",
                 },
                 'cursos': {
-                    "resource": "integrado/?to=RTZjcGZxTGFsSkFOOXRhSkpVdm5ELzBmWjZPUjNwZVNDdzA3NzFoRzcxenlYcG9nTDdyZ3YyT1QyanU0Y2pMYXk3Q21DTUMySS9PWXlYWklyM2NaellvRlVTRVVZeVhodnBGZ2RVQkw0VkJza3Y3b2VhV2NmVmZIN1I5VmFCNng3K1ZpV1BLMnNrZE84dmk3NW1YNGVUNjJWWWVwblVDb2hBaHFBYkQrZ3VHckNLdTZCWHAwNEVZbGpacUpqR3Nn&secret=uftm",
+                    "resource"  : "integrado/?to=RTZjcGZxTGFsSkFOOXRhSkpVdm5ELzBmWjZPUjNwZVNDdzA3NzFoRzcxenlYcG9nTDdyZ3YyT1QyanU0Y2pMYXk3Q21DTUMySS9PWXlYWklyM2NaellvRlVTRVVZeVhodnBGZ2RVQkw0VkJza3Y3b2VhV2NmVmZIN1I5VmFCNng3K1ZpV1BLMnNrZE84dmk3NW1YNGVUNjJWWWVwblVDb2hBaHFBYkQrZ3VHckNLdTZCWHAwNEVZbGpacUpqR3Nn&secret=uftm",
                     "data_type" : "csv",
+                    "sep"       : ";",
+                    "index_col" : "id",
+                    "encoding"  : "ISO-8859-1"
                 },
                 'discentes': {
                     "resource": "integrado/?to=RTZjcGZxTGFsSkFOOXRhSkpVdm5ELzBmWjZPUjNwZVNDdzA3NzFoRzcxenlYcG9nTDdyZ3YyT1QyanU0Y2pMYXk3Q21DTUMySS9PWXlYWklyM2NaellvRlVTRVVZeVhodnBGZ2RVQkw0VkJza3Y3b2VhV2NmVmZIN1I5VmFCNng3K1ZpV1BLMnNrZE84dmk3NW1YNGVZeWJjeS8vNTRjanVvYnAvK09nQjNaRVpGeU9wZjlydlRETzZOZXBzWXBW&secret=uftm",
                     "data_type" : "csv",
+                    "sep" : ";",
+                    "index_col" : "id"
                 }
             }
         },
