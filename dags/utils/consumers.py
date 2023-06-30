@@ -94,8 +94,6 @@ class CkanConsumer:
         print(f'Parametos de chamada: {params}')
         if 'limit' not in params:
             limit = 10000
-            #if self.total < 1000:
-            #    limit = self.total
             params['limit'] = limit
 
         if 'offset' not in params:
