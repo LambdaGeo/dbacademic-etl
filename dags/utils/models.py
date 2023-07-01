@@ -96,6 +96,7 @@ class Cursos:
     codigo_unidade = CCSO.offeredBy
     sameas = OWL.sameas
     codigo_coordenador = AIISO.responsibilityOf
+    instituicao = CCSO.belongsTo
 
     @RdfsClass(CCSO.ProgramofStudy, "https://purl.org/dbacademic/resource#")
     @BNamespace('ccso', CCSO)
@@ -111,6 +112,9 @@ class Cursos:
         
         if "sameas" in dict:
             self.sameas = URIRef(dict["sameas"])
+
+        if "instituicao" in dict and dict["instituicao"] != None:
+            self.instituicao = URIRef(dict["instituicao"])
 
         #if "coordenador" in dict:
         #    self.codigo_coordenador = URIRef(dict["coordenador"])
