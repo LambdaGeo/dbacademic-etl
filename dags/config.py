@@ -115,7 +115,7 @@ config_dags = {
             "consumer": "CkanConsumer",
             "main_url": "https://dados.ufv.br",
             "colecoes": {
-                "docentes" : {"resource_id": "a949a903-9536-4d20-87e5-cca5c217771a"},
+                "docentes" : {"resource_id": "a949a903-9536-4d20-87e5-cca5c217771a", "query": "categoria.str.contains('Docente')"},
                 "discentes": {"resource_id": "f7128b4a-07fb-4a87-ac5d-cd73cb82dfbe"},
                 "cursos"   : {"resource_id": "e569f2e0-8ba0-4922-b715-9928980ae9f2"}
             },

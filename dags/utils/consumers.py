@@ -98,10 +98,11 @@ class CkanConsumer:
 
         if 'offset' not in params:
             params['offset'] =  0
-        print(f'Novos parametos de chamada: {params}')
-
+        
         if "query" in params:
             del params['query']
+
+        print(f'Novos parametos de chamada - 2 : {params}')
 
         data = []
         
@@ -115,6 +116,7 @@ class CkanConsumer:
         print(f'Getting data from {response.url} at offset {len(data)} from {self.total}')
 
         data.extend(response.json()['result']['records'])
+        print (data[0:5])
 
         while len(data) < self.total:
             params['offset'] = len(data)
@@ -129,6 +131,8 @@ class CkanConsumer:
         print(f'Total of {len(data)} records retrieved from {self.url} on resource {self.resource_id}')
         df = pd.DataFrame(data)
         df = normalize_collumns(df)
+        print (df)
+        print (df.columns.values.tolist())
 
         if "query" in transform_params:
                 #colunas_str = data.dtypes[data.dtypes == 'str'].index
