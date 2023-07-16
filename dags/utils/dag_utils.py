@@ -8,6 +8,7 @@ import utils.consumers as consumers
 import utils.models
 
 import requests
+import pandas as pd
 import os
 
 from airflow.models import Variable
@@ -21,6 +22,7 @@ def mapper_generate (obj, mapeamento):
             if current in obj.keys():
                 new_map[collumn] = current
                 break
+    print (new_map)
     return new_map
 
 def append_key_value (data, key, value):
