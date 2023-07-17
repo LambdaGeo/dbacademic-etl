@@ -14,11 +14,12 @@ config_dags = {
                 "nome_contratado"
             ],
             "id": [
+                "_id",
+                "id",
                 "siape",
                 "matricula",
                 "matrícula",
-                "Matricula",
-                "_id",
+                "Matricula",                
                 "id",
                 "vinculo_servidor",
                 "codigoservidor",
@@ -32,6 +33,7 @@ config_dags = {
                 "escolaridade",
                 "nivel_escolaridade",
                 "titulacao",
+                "titulação",
             ],
             "nome_lotacao": ["orgao_de_lotacao_(siape)", "setor_lotacao","campus_lotacao_siape",'campus','setor_siape','setor_suape'],
             "email" : ["email"]
@@ -60,7 +62,7 @@ config_dags = {
     },
     "instituicoes": {
         "ufrn": {
-            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_do_Rio_Grande_do_Norte",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_do_Rio_Grande_do_Norte",
             "consumer": "CkanConsumer",
             "main_url": "https://dados.ufrn.br",
             "colecoes": {
@@ -71,11 +73,14 @@ config_dags = {
             },
         },
         "ufca": {
+            # tava tendo problema, pq os id se repetiam
             "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_do_Cariri",
             "consumer": "CkanConsumer",
             "main_url": "https://dados.ufca.edu.br",
             "colecoes": {
-                "docentes" : {"resource_id": "6b2dbca5-58f8-472e-bc6a-eb827e631873"},
+                "docentes" : {"resource_id": "6b2dbca5-58f8-472e-bc6a-eb827e631873",
+                    "query": "cargo.str.contains('PROFESSOR')"},
+                
                 #"unidades" : {"resource_id": "406c5ac5-a8ff-4a9a-b343-83e1eb804725"},
                 "cursos"   : {"resource_id": "5f31e620-a366-42c9-a54c-96da666c93b7"}
             },
@@ -115,13 +120,14 @@ config_dags = {
             "consumer": "CkanConsumer",
             "main_url": "https://dados.ufv.br",
             "colecoes": {
-                "docentes" : {"resource_id": "a949a903-9536-4d20-87e5-cca5c217771a", "query": "categoria.str.contains('Docente')"},
+                "docentes" : {"resource_id": "a949a903-9536-4d20-87e5-cca5c217771a", 
+                    "query": "categoria.str.contains('Docente')"},
                 "discentes": {"resource_id": "f7128b4a-07fb-4a87-ac5d-cd73cb82dfbe"},
                 "cursos"   : {"resource_id": "e569f2e0-8ba0-4922-b715-9928980ae9f2"}
             },
         },
         "ufsj": {
-            "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_de_S%C3%A3o_Jo%C3%A3o_del-Rei",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_de_São_João_del-Rei",
             "consumer": "CkanConsumer",
             "main_url": "http://dados.ufsj.edu.br",
             "colecoes": {
@@ -131,7 +137,7 @@ config_dags = {
             },
         },
         "ufms": {
-            "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_do_Mato_Grosso_do_Sul",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_de_Mato_Grosso_do_Sul",
             "consumer": "CkanConsumer",
             "main_url": "https://dadosabertos.ufms.br",
             "colecoes": {
@@ -150,6 +156,7 @@ config_dags = {
             },
         },
         "ifgoiano": {
+            # esta dividido
             "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_Goiano",
             "consumer": "CkanConsumer",
             "main_url": "https://dados.ifgoiano.edu.br",
@@ -182,7 +189,7 @@ config_dags = {
             },
         },
 
-        "ifap": {
+        "ifap": { # nao abriu
             "consumer": "CkanConsumer",
             "main_url": "http://dados.ifap.edu.br",
             "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_do_Amapá",
@@ -270,10 +277,10 @@ config_dags = {
         "ufsb": { #Erro: Portal fora do ar
             "consumer": "CkanConsumer", 
             "main_url": "http://dadosabertos.ufsb.edu.br", 
-            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_do_Sul_de_Minas",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_do_Sul_da_Bahia",
             "colecoes": {
                 "cursos"   : {"resource_id": "c723411f-7156-4a46-8769-425a8e60c2b9"},
-                "discentes": {"resource_id": "9572074b-ce46-4d9b-8a4b-f8ddc7507ac3"}
+               # "discentes": {"resource_id": "9572074b-ce46-4d9b-8a4b-f8ddc7507ac3"} # nao tem informacao
             },
         },
         "unilab": { 
@@ -315,15 +322,16 @@ config_dags = {
                 "discentes": {"resource_id": "50578feb-70c6-44ee-8425-a7b5b15c8bd5"}
             },
         },
-        "utfpr": {
+        "uftpr": {
             "consumer": "CkanConsumer",
             "main_url": "http://dados.utfpr.edu.br",
             "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Tecnológica_Federal_do_Paraná",
             "colecoes": {
-                "docentes" : {"resource_id": "3475ec4b-c807-411f-a134-a07862eb403f",
-                              "query": "cargo.str.contains('Professor')"},
+                # docente nao tem nome
+                #"docentes" : {"resource_id": "3475ec4b-c807-411f-a134-a07862eb403f", "query": "cargo.str.contains('Professor')"},
                 "cursos"   : {"resource_id": "270d0fce-380f-4db8-899f-cde38630af9b"},
-                "discentes": {"resource_id": "fd63c8e9-2295-4ee8-9e09-aaad17dc508d"}
+                #discente nao tem nome
+                #"discentes": {"resource_id": "fd63c8e9-2295-4ee8-9e09-aaad17dc508d"}
             },
         },
         "uffs": {
@@ -348,7 +356,7 @@ config_dags = {
         "ifal": {
             "consumer": "CkanConsumer",
             "main_url": "https://dadosabertos.ifal.edu.br",
-            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_de_Educação,_Ciência_e_Tecnologia_de_Alagoas",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_de_Alagoas",
             "colecoes": {
                 "cursos"   : {"resource_id": "b3dae945-84a4-488b-a350-207f6ed6f6a7"},
             },
@@ -356,7 +364,7 @@ config_dags = {
         "ifmt": { #Não atualizavel
             "consumer": "CkanConsumer",
             "main_url": "https://dados.ifmt.edu.br",
-            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_de_Educação,_Ciência_e_Tecnologia_de_Mato_Grosso",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_de_Mato_Grosso",
             "colecoes": {
                 "docentes" : {"resource_id": "68c912d6-95fe-42a2-b80e-c9dc3b200fa6",
                               "query": "cargo_emprego.str.contains('PROF')"},
@@ -376,17 +384,9 @@ config_dags = {
                 "cursos"   : {"resource_id": "d6314b94-1623-4aa6-9e73-cf2cbd227ac3"},
                 "discentes": {"resource_id": "29c2b593-ed14-4b73-b30c-d6135f072cf7"},
             },
-        },"ifpi": { 
-            "consumer": "CkanConsumer",
-            "main_url": "https://dados.ifpi.edu.br",
-            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_do_Piauí",
-            "colecoes": {
-                "docentes" : {
-                    "resource_id": "f69888cc-e9eb-4071-af64-37d5a6fdd881",
-                    "query" : "cargo_classe.str.contains('CLASSE')"
-                    }
-            },
         },
+        
+        
         "ifrn": { 
             "consumer": "CkanConsumer",
             "main_url": "https://dados.ifrn.edu.br",
@@ -432,11 +432,12 @@ config_dags = {
         "ifrr": { #Ajustar formacao com números.
             "consumer": "FileConsumer",
             "main_url": "https://dados.ifrr.edu.br",
-            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_de_Educação,_Ciência_e_Tecnologia_de_Roraima",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_de_Roraima",
             "colecoes": {
                 "docentes": {
                     "resource"  : "dataset/6a324826-ae4f-4d54-9d93-a52c7e4ca359/resource/6ca0beae-bc12-47b7-84e5-eb82cd7f0730/download/professores-ebtt-ativos-maio2021.csv",
-                    "d                        }ata_type" : "csv",
+                    "data_type" : "csv",
+                    "query" : "categoria.str.contains('DOCENTE')",
                     "index_col" : "id"
                 }
             },
@@ -444,7 +445,7 @@ config_dags = {
         "ifba": { 
             "consumer": "FileConsumer",
             "main_url": "https://dadosabertos.ifba.edu.br",
-            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_de_Educação,_Ciência_e_Tecnologia_da_Bahia",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_da_Bahia",
             "colecoes": {
                 "docentes": {
                     "resource"  : "dataset/2c022fcd-3e40-4b4f-8345-4c8878579127/resource/a58b30fe-8937-4db1-a479-9d7e8cc7deab/download/dados_docentes_junho_2021.csv",
@@ -475,7 +476,7 @@ config_dags = {
         "ifpe": { 
             "consumer": "FileConsumer",
             "main_url": "https://dados.ifpe.edu.br",
-            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_de_Educação,_Ciência_e_Tecnologia_de_Pernambuco",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_de_Pernambuco",
             "colecoes": {
                 "cursos": {
                     "resource"  : "dataset/72066ed6-ba79-4ac6-9589-5dcb5222aa21/resource/caf954ed-52dc-4a61-a2c8-282cf029ea64/download/cursos.csv",
@@ -486,7 +487,7 @@ config_dags = {
         "ifsp": { 
             "consumer": "FileConsumer",
             "main_url": "https://drive.ifsp.edu.br",
-            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_de_Educação,_Ciência_e_Tecnologia_de_São_Paulo",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_de_São_Paulo",
             "colecoes": {
                 "cursos": {
                     "resource"  : "s/lGrKkADGzDX5UbK/download",
@@ -494,10 +495,10 @@ config_dags = {
                 }
             },
         },
-        "ifs": {  #TODO Erro 403
+        "ifs": {  #TODO Erro 403 ## ssl 
             "consumer": "FileConsumer",
             "main_url": "https://dados.ifs.edu.br",
-            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_de_Educação,_Ciência_e_Tecnologia_de_São_Paulo",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_de_São_Paulo",
             "colecoes": {
                 "docentes": {
                     "resource"  : "dataset/42a5d734-3149-4ca7-889e-fb6a73f96a18/resource/630bbf3d-1170-47b1-bb59-7d2876563c24/download/servidores.csv",
@@ -513,7 +514,7 @@ config_dags = {
         "ifsul": {  
             "consumer": "FileConsumer",
             "main_url": "http://www.ifsul.edu.br",
-            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_de_Educação,_Ciência_e_Tecnologia_sul-rio-grandense",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_Sul-rio-grandense",
             "colecoes": {
                 "docentes": {
                     "resource"  : "component/k2/item/download/31763_b4fb06462d5c4f8495dc6b764f426f08",
@@ -526,7 +527,7 @@ config_dags = {
         "ifbaiano": { 
             "consumer": "FileConsumer",
             "main_url": "https://ifbaiano.edu.br",
-            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_de_Educação,_Ciência_e_Tecnologia_Baiano",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_Baiano",
             "colecoes": {
                 "docentes": {
                     "resource"  : "portal/wp-content/uploads/2021/09/Servidores-docentes.csv",
@@ -553,7 +554,7 @@ config_dags = {
         "ifce": { 
             "consumer": "FileConsumer",
             "main_url": "https://ifce.edu.br",
-            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_de_Educação,_Ciência_e_Tecnologia_do_Ceará",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_do_Ceará",
             "colecoes": {
                 "discentes": { #IFCE(discentes) está com o erro http.client.IncompleteRead
                     "resource"  : "dados-abertos-arquivos/matriculas/ifce-matriculas.csv/@@download/file/IFCE-MATRICULAS.csv",
@@ -592,7 +593,7 @@ config_dags = {
         "ifmg": { 
             "consumer": "FileConsumer",
             "main_url": "https://dadosabertos.ifmg.edu.br",
-            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_de_Educação,_Ciência_e_Tecnologia_de_Minas_Gerais",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_de_Minas_Gerais",
             "colecoes": {
                 "cursos": {
                     "resource"  : "dataset/f427a896-9207-4db1-85bb-52d0610239d1/resource/9700ae7c-5b0d-4f89-8a19-939db7852267/download/conjunto-de-dados-cursos-ofertados.csv",
@@ -618,7 +619,7 @@ config_dags = {
         "ifro": { #Não atualizavél
             "consumer": "FileConsumer",
             "main_url": "https://dados.ifro.edu.br",
-            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_de_Educação,_Ciência_e_Tecnologia_de_Rondônia",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Instituto_Federal_de_Rondônia",
             "colecoes": {
                 "docentes": {
                     "resource": "dataset/cefffa4b-b662-438f-b2fa-1ab9fa35471c/resource/41b84d9d-135a-47f2-80e5-9da63123073d/download/docentes_disciplina_de_ingresso.csv",
@@ -820,7 +821,8 @@ config_dags = {
             "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_do_ABC",
             "colecoes": {
                 'docentes': {
-                    "resource": "images/ufabc/sugepe/bases_sugepe/bd_sugepe03_2020.csv",
+                    # base de dados estava errado, estava pegando
+                    "resource": "images/ufabc/sugepe/bases_sugepe/bd_sugepe01_2020.csv",
                     "data_type" : "csv",
                     "query" : "cargo.str.contains('PROFESSOR')",
                     "encoding" : "ISO-8859-1",
@@ -860,7 +862,7 @@ config_dags = {
         "ufmt": { #Não atualizável
             "consumer": "FileConsumer",
             "main_url": "https://sistemas.uftm.edu.br",
-            "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_do_Triângulo_Mineiro",
+            "dbpedia_pt": "http://pt.dbpedia.org/resource/Universidade_Federal_de_Mato_Grosso",
             "colecoes": {
                 'docentes': {
                     "resource": "integrado/?to=RTZjcGZxTGFsSkFOOXRhSkpVdm5ELzBmWjZPUjNwZVNDdzA3NzFoRzcxenlYcG9nTDdyZ3YyT1QyanU0Y2pMYXk3Q21DTUMySS9PWXlYWklyM2NaellvRlVTRVVZeVhodnBGZ2RVQkw0VkJza3Y3b2VhV2NmVmZIN1I5VmFCNng3K1ZpV1BLMnNrZE84dmk3NW1YNGVRK0FHWTBOTEQzNXk3MmE5SVhRR2NwRmN0QWV2dVd0ZHI5Z00zVTQ3ZTNq&secret=uftm",
@@ -903,3 +905,31 @@ config_dags = {
 
     },
 }
+
+instituicoes = config_dags["instituicoes"].keys()
+universidades = [ x for x in instituicoes if x[0] == 'u' ]
+institutos = [ x for x in instituicoes if x[0] == 'i' ]
+print ("instituicoes", len (instituicoes))
+print ("universidades", len (universidades))
+print ("institutos", len (institutos))
+
+colecoes = {"cursos": 0, "docentes": 0, "discentes": 0, "unidades": 0}
+
+colecoes_instituicoes = {"cursos": [], "docentes": [], "discentes": [], "unidades": []}
+
+
+instituicoes = config_dags["instituicoes"]
+print (instituicoes)
+for k, v in instituicoes.items():
+    for c in v["colecoes"]:
+        #print (c)
+        colecoes_instituicoes[c].append(k)
+        colecoes[c] = colecoes[c] + 1
+
+print (colecoes)
+print ("docentes")
+print (colecoes_instituicoes["docentes"])
+print ("cursos")
+print (colecoes_instituicoes["cursos"])
+print ("discentes")
+print (colecoes_instituicoes["discentes"])

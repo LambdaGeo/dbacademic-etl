@@ -49,7 +49,7 @@ class Docentes:
         self.matricula = Literal(dict["matricula"])
         if "sexo" in dict:
             self.sexo = Literal(dict["sexo"])
-        if "formacao" in dict and dict["formacao"] != None and dict["formacao"].upper() in formacao_dic:
+        if "formacao" in dict and dict["formacao"] != None and type(dict["formacao"]) == "str"  and dict["formacao"].upper() in formacao_dic:
             self.formacao = URIRef(formacao_dic[dict["formacao"].upper()])
         if "codigo_lotacao" in dict and dict["codigo_lotacao"] != None:
             hash_code = hashcode ( dict["instituicao"], UNIDADES , dict["codigo_lotacao"])
@@ -71,6 +71,7 @@ class Discentes:
     matricula  = CCSO.personID
     codigo_curso = CCSO.enrolledIn
     sexo = FOAF.gender
+    instituicao = CCSO.enrolledIn
  
 
     @RdfsClass(CCSO.Student, "https://purl.org/dbacademic/resource#")
@@ -87,6 +88,9 @@ class Discentes:
             self.codigo_curso = URIRef( f"https://purl.org/dbacademic/resource#{hash_code}" )
         if "data_ingresso" in dict:
             self.data_ingresso = Literal (dict["data_ingresso"])
+
+        if "instituicao" in dict and dict["instituicao"] != None:
+            self.instituicao = URIRef(dict["instituicao"])
 
 
 class Cursos:

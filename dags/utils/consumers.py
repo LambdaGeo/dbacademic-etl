@@ -41,7 +41,9 @@ class FileConsumer:
                 if'decimal' in params:
                     decimal = params["decimal"]
                  
+                
                 df = pd.read_csv(self.url, sep=sep, decimal=decimal, encoding=encoding,on_bad_lines='skip')
+                
             elif data_type == 'xls':
                 df = pd.read_excel(self.url, sheet_name=0, header=0, engine='openpyxl')
 
@@ -67,17 +69,18 @@ class FileConsumer:
             df = normalize_collumns(df)
             "---After---"
             print(df.columns)
-            
+            print (f"[INFO] - Number of rows before query: {df.shape[0]}")
+
             if "query" in params:
                 #colunas_str = data.dtypes[data.dtypes == 'str'].index
                 #data[colunas_str].fillna('Desconhecido', inplace=True) # todo
                 df.fillna('Desconhecido', inplace=True) ## se for tudo string, pode dar erro
                 df = df.query(params['query'])
-                print (df)
+                print (f"[INFO] - Number of rows after query: {df.shape[0]}")
             
             if "index_col" in params:
                 df[params['index_col']] = df.index
-                print(df.head())
+                #print(df.head())
             
             if self.total:
                 df = df.iloc[:self.total]

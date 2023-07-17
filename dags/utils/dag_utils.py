@@ -41,6 +41,8 @@ def extract (consumer, params):
 def transform (data, gen_mapper, dbpedia_url):
     mapper = mapper_generate (data[0], gen_mapper)   
     data = mapper_all(mapper, data)
+    print ("info:",data[0])
+    print (len(data))
     return append_key_value (data, "instituicao", dbpedia_url)
 
 def dynamic_elt(institute, collection, consumer, params, generic_mapper, dbpedia_url):
@@ -162,7 +164,7 @@ def dynamic_create_dag(dag_id:str, institute, conf, generic_mapper, schedule_int
     collections = conf["colecoes"]
     main_url = conf["main_url"]
     dbpedia_url = conf["dbpedia_pt"]
-    extract_total = int (Variable.get("extract_total", default_var=10))
+    extract_total = int (Variable.get("extract_total", default_var=10000000))
     consumer = getattr(consumers, conf['consumer']) (main_url, extract_total)
     
 
